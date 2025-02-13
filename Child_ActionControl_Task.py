@@ -81,20 +81,11 @@ if event.getKeys(['q']):
 
 
 """
+Original adult action control task paradigm: 
+
 # single movement trial (6~11.5s)
 
      # planning phase (2~6.5s)
-        # read in trials
-            trial_path = os.path.join(os.getcwd(),'trials',runtime_vars['subj_code']+'_trials.csv')
-            trial_list = import_trials(trial_path)
-            print(trial_list)
-
-        # open file to write data too and store a header
-            data_file = open(os.path.join(os.getcwd(),'data',runtime_vars['subj_code']+'_data.csv'),'w')
-            header = separator.join(['subj_code',"seed"])
-            data_file.write(header+'\n')
-        
-        # trial loop
      # execution phase (4~8.5s)
      # fixation phase 
 
