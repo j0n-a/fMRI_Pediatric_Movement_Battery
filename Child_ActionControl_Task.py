@@ -27,8 +27,8 @@ print(images_dictionary)
 """
 
 # placeholder = visual.Rect(win,width=180,height=80, fillColor="lightgray",lineColor="black", lineWidth=6,pos=[0,0])
-instruction = visual.TextStim(win,text="In this experiment, you just need to move your body according to the instructions.\nDuring the experiment, a symbol will be drawn on a specific body part.\nOne of the following four symbols will appear.\n (PIC) \n\n\n PRESS any key to start.",
-                              color="black", pos=[0,0]) # height=50
+instruction = visual.TextStim(win,text="In this experiment, you need to move your body according to the instructions.\nDuring the experiment, a symbol will be drawn on a specific body part.\n (PIC) \n\n\n PRESS any key to proceed.",
+                              color="black", pos=[0,0]) 
 
 instruction.draw()
 win.flip()
@@ -37,8 +37,37 @@ win.flip()
 while not event.getKeys():
     pass  # Wait until any key is pressed
                               
-instruction = visual.TextStim(win, text="When the instruction begins, you need to move your body part that the symbol is placed on.\n\nIf the symbol is on two parts, you should move both parts at the same time.\n\nWhen the central fixation point appears, you can stop moving and wait for the next instruction.", 
-                              color="black",pos=[0,0]) # height=10, 
+instruction = visual.TextStim(win, text="During the experiment, you will see one of these three arrows: \n\n\n (PIC of all 3 arrows)", 
+                              color="black",pos=[0,0])  
+instruction.draw()
+win.flip()
+core.wait(5)
+
+# make this into for loop later? 
+instruction = visual.TextStim(win, text="When you see this arrow, \n move your body part LEFT and RIGHT \n\n\n (PIC1)", 
+                              color="black",pos=[0,0]) 
+
+instruction.draw()
+win.flip()
+core.wait(5)
+
+instruction = visual.TextStim(win, text="When you see this arrow, \n Rotate your body part CLOCKWISE \n\n\n (PIC2)", 
+                              color="black",pos=[0,0]) 
+
+instruction.draw()
+win.flip()
+core.wait(5)
+
+instruction = visual.TextStim(win, text="When you see this arrow, \n Rotate your body part ANTICLOCKWISE \n\n\n (PIC3)", 
+                              color="black",pos=[0,0]) 
+
+instruction.draw()
+win.flip()
+core.wait(5)
+
+instruction = visual.TextStim(win, text="Let's have a practice run. How would you move your body? \n\n\n (PIC) \n\n\n Press any key to move on after instructor's approval", 
+                              color="black",pos=[0,0]) 
+
 instruction.draw()
 win.flip()
 
