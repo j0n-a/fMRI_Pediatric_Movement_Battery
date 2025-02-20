@@ -1,9 +1,19 @@
 # fMRI-Movement-Battery
 
-These tasks was created by [Sujin Park](https://scholar.google.com/citations?hl=en&user=qS3zgSgAAAAJ) (sup031@ucsd.edu) [Jonathan Ahern](https://scholar.google.com/citations?user=6pU5U5gAAAAJ&hl=en) (jahern@ucsd.edu) for use in the [Developmental Cognitive Neuroscience Lab at UCSD](https://greenelab.ucsd.edu/).
-The taks provided here are designed to be consistent with the movement task battery and action control coordination task used in previous work [(Gordon et. al. 2023)](https://doi.org/10.1038/s41586-023-05964-2)[^1]. Specific care has been taken to adapt these methods to a pediatric population and utilize guidelines identified in previous works [(Raschle et. al. 2009](https://doi.org/10.3791/1309) & [Wilke et. al. 2018)](https://doi.org/10.1002/acn3.658)[^2][^3]. 
+These tasks was created by [Sujin Park](https://scholar.google.com/citations?hl=en&user=qS3zgSgAAAAJ) (sup031@ucsd.edu) and [Jonathan Ahern](https://scholar.google.com/citations?user=6pU5U5gAAAAJ&hl=en) (jahern@ucsd.edu) for use in the [Developmental Cognitive Neuroscience Lab at UCSD](https://greenelab.ucsd.edu/).
+The tasks provided here are designed to be consistent with the movement task battery and action control coordination task used in previous work [(Gordon et. al. 2023)](https://doi.org/10.1038/s41586-023-05964-2)[^1]. Specific care has been taken to adapt these methods to a pediatric population and utilize guidelines identified in previous works [(Raschle et. al. 2009](https://doi.org/10.3791/1309) & [Wilke et. al. 2018)](https://doi.org/10.1002/acn3.658)[^2][^3]. 
 
-This task included 
+-------------------------------------------------------------------------------------
+## Left-Right Task
+This task is designed to establish a participants ability to distinguis between the left and the right side of their body. This task is meant to establish minimum task compentancy prior to undertaking the task in the MRI scanner.
+
+## Other Tasks
+Discription of other task.
+
+## Etc.
+Etc. etc. etc.
+
+-------------------------------------------------------------------------------------
 
 Stimuli and associated information can be found in the `Stimuli` subfolder.
 
