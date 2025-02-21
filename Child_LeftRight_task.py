@@ -41,10 +41,7 @@ def get_runtime_vars(vars_to_get,order,exp_version="experiment_code_for_referenc
         print('User Cancelled')
 order =  ['subj_code','seed','num_trials']
 runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_trials':48}, order)
-print(runtime_vars)
-
-##### Generate trials #####
-generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['num_trials'], task='LeftRight')
+# print(runtime_vars)
 
 ##### Set up psychopy features for the task #####
 # set window paramaters
@@ -65,7 +62,16 @@ foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_e
 #  TEXT STIMULI
 instruction = visual.TextStim(win, text="text", color="black", pos=[0,0])
 
+##### Generate trials #####
+generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['num_trials'], task='LeftRight')
 
+##### Get the trails #####
+trials = []
+with open(f'{current_directory}/trials/{runtime_vars["subj_code"]}_LeftRight_trials.csv', 'r') as trials_file:
+    for line in trials_file:
+        if line.startswith('subj_code'):
+            continue
+        trials.append(line.strip().split(','))
 
 """# get runtime variables 
 order = ['subj_code', 'seed']
