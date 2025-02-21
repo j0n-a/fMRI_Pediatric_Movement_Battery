@@ -38,8 +38,8 @@ def get_runtime_vars(vars_to_get,order,exp_version="experiment_code_for_referenc
         return vars_to_get
     else: 
         print('User Cancelled')
-order =  ['subj_code','seed','num_reps']
-runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_reps':50}, order)
+order =  ['subj_code','seed','num_trials']
+runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_trials':48}, order)
 print(runtime_vars)
 
 ##### Set up psychopy features for the task #####
@@ -51,13 +51,13 @@ figure = visual.ImageStim(win, image=f'{current_directory}/stimuli/figure.png', 
 #  HAND STIMULI
 hand_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_plan.png', pos=[0,0])
 hand_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_plan.png', pos=[0,0])
-hand_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_execute.png', pos=[0,0])
-hand_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_execute.png', pos=[0,0])
+hand_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_exec.png', pos=[0,0])
+hand_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_exec.png', pos=[0,0])
 #  FOOT STIMULI
 foot_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_plan.png', pos=[0,0])
 foot_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_plan.png', pos=[0,0])
-foot_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_execute.png', pos=[0,0])
-foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_execute.png', pos=[0,0])
+foot_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_exec.png', pos=[0,0])
+foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_exec.png', pos=[0,0])
 #  TEXT STIMULI
 instruction = visual.TextStim(win, text="text", color="black", pos=[0,0])
 
