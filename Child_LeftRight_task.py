@@ -64,27 +64,33 @@ foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_e
 #  incorrect_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_high_pitched_buzzer_78377.wav')
 #  TEXT STIMULI
 instruction_dict = {
+    'good': 'Great Job!',
     # Initial Explanation
     0.0 : 'Welcome to the Left Right Task!\n\nPress space to continue.',
     1.0 : 'In this expiriment, you will identify what side of the body a something is happening on.\n\nPress space to continue.',
     # Hand Placement Instructions
     2.0 : "Please place one finger of your left hand on the 'z' key and press it.",
-    2.1 : 'Great job!',
-    2.2 : "That's not quite right. Place one finger of your left hand on the 'z' key and press it.",
     3.0 : "Please place one finger of your right hand on the 'm' key and press it.",
-    3.1 : 'Great job!',
-    3.2 : "That's not quite right. Place one finger of your right hand on the 'm' key and press it.",
     # Explain the task
-    4.0 : 'On the figure on the screen you you will see one of the hands or feet change color.',
-    4.1 : 'Your job is to press the key corresponding to the side of the body that changed color as fast as you can.',
-    4.2 : "If the left hand or foot changes color, press the 'z' key with your left hand.",
-    4.3 : "If the right hand or foot changes color, press the 'm' key with your right hand.",
-    4.4 : 'You will only have 2 seconds to respond, so answer as fast as you can.',
-    4.5 : 'You will get feedback on whether you are correct or not, so you can learn from your mistakes.',
-    4.6 : "If you make a mistake or don't asswer fast enough, you will see a red X and hear this buzzer.",
-    4.7 : "If you answer correctly, you will see a hear this sound and move on to the next trial.",
+    4.0 : "On the figure on the screen you you will see one of the hands or feet change color.\n\nPress 'z' or 'm' to continue.",
+    4.1 : "Your job is to press the key corresponding to the side of the body that changed color as fast as you can.\n\nPress 'z' or 'm' to continue.",
+    4.2 : "If the left hand or foot changes color, press the 'z' key with your left hand.\n\nPress 'z' or 'm' to continue.",
+    4.3 : "If the right hand or foot changes color, press the 'm' key with your right hand.\n\nPress 'z' or 'm' to continue.",
+    4.4 : "You will only have 2 seconds to respond, so answer as fast as you can.\n\nPress 'z' or 'm' to continue.",
+    4.5 : "You will get feedback on whether you are correct or not, so you can learn from your mistakes.\n\nPress 'z' or 'm' to continue.",
+    4.6 : "If you make a mistake or don't asswer fast enough, you will see a red X and hear this buzzer.\n\nPress 'z' or 'm' to continue.",
+    4.7 : "If you answer correctly, you will see a hear this sound and move on to the next trial.\n\nPress 'z' or 'm' to continue.",
+    4.8 : "You will have a short break after every 10 trials.\n\nPress 'z' or 'm' to continue.",
+    # Prepare to start the task
+    5.0 : "You are now ready to start the task.\n\nPress 'z' or 'm' to begin.",
 }
 instruction = visual.TextStim(win, text='', color='black', pos=[0,0])
+def instruct(x):
+    win.flip()
+    core.wait(0.25)
+    instruction.setText(instruction_dict[x])
+    instruction.draw()
+    win.flip()
 
 ##### Generate trials #####
 generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['num_trials'], task='LeftRight')
@@ -100,15 +106,42 @@ with open(f'{current_directory}/trials/{runtime_vars["subj_code"]}_LeftRight_tri
 ##### Run the task #####
 
 # Initial Explanation
-instruction.setText(instruction_dict[0.0])
-instruction.draw()
-win.flip()
+instruct(0.0)
 event.waitKeys(keyList=['space'])
-instruction.setText(instruction_dict[1.0])
-instruction.draw()
-win.flip()
+instruct(1.0)
 event.waitKeys(keyList=['space'])
-instruction.setText(instruction_dict[2.0])
-instruction.draw()
-win.flip()
+instruct(2.0)
 event.waitKeys(keyList=['z'])
+instruct('good')
+core.wait(2.0)
+instruct(3.0)
+event.waitKeys(keyList=['m'])
+instruct('good')
+core.wait(2.0)
+instruct(4.0)
+event.waitKeys(keyList=['z','m'])
+instruct(4.1)
+event.waitKeys(keyList=['z','m'])
+instruct(4.2)
+event.waitKeys(keyList=['z','m'])
+instruct(4.3)
+event.waitKeys(keyList=['z','m'])
+instruct(4.4)
+event.waitKeys(keyList=['z','m'])
+instruct(4.5)
+event.waitKeys(keyList=['z','m'])
+instruct(4.6)
+# correct_sound.play()
+event.waitKeys(keyList=['z','m'])
+instruct(4.7)
+# incorrect_sound.play()
+event.waitKeys(keyList=['z','m'])
+instruct(4.8)
+event.waitKeys(keyList=['z','m'])
+instruct(5.0)
+event.waitKeys(keyList=['z','m'])
+
+
+# Shut down
+win.close()
+core.quit()
