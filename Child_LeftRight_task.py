@@ -1,6 +1,7 @@
 # imports
 from psychopy import visual, event, core, gui
 import os
+from helper import generate_trials
 
 """
 This expiriment is designed to determine a participants ability to destinguish stimuli presented in their right and left visual 
@@ -41,6 +42,9 @@ def get_runtime_vars(vars_to_get,order,exp_version="experiment_code_for_referenc
 order =  ['subj_code','seed','num_trials']
 runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_trials':48}, order)
 print(runtime_vars)
+
+##### Generate trials #####
+generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['num_trials'], task='LeftRight')
 
 ##### Set up psychopy features for the task #####
 # set window paramaters

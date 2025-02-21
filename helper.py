@@ -1,4 +1,4 @@
-def generate_trials(subj_code, seed, num_trials=26, task=None):
+def generate_trials(subj_code, seed, num_trials=48, task=None):
     '''
     Code adapted from work by Dr. Martin Zettersten. Last updated by JA 02-20-2025
     Writes a file named {subj_code}_{task}_trials.csv, one line per trial. Creates a trials subdirectory if one does not exist
@@ -19,7 +19,7 @@ def generate_trials(subj_code, seed, num_trials=26, task=None):
     parts = ['hand_l', 'foot_l', 'hand_r', 'foot_r']
     plan_or_exec = ['plan', 'exec']
     movements = ['clockwise', 'counterclockwise','left_right','open_close']
-    random.shuffle(parts)
+    random.shuffle(parts) # we must shuffle the trials for taks that are not cleanly divisable by the number of permutations
     random.shuffle(plan_or_exec)
     random.shuffle(movements)
 
@@ -39,12 +39,10 @@ def generate_trials(subj_code, seed, num_trials=26, task=None):
     for i in range(num_trials):
         pick_part = i%len(parts)
         pick_plan_or_exec = (i//len(parts))%len(plan_or_exec)
-        trial_file.write(separator.join([str(subj_code),
-                                         str(seed),
-                                         parts[pick_part],
-                                         plan_or_exec[pick_plan_or_exec]])+'\n')
-    random.shuffle(trials)
-                
+        trials.append([subj_code, seed, parts[pick_part], plan_or_exec[pick_plan_or_exec]])
+    random.shuffle(trials) # shuffle the trials
+    for trial in trials:
+        trial_file.write(separator.join([str(x) for x in trial])+'\n')
 
     #close the file
     trial_file.close()
