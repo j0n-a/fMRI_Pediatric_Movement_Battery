@@ -5,10 +5,13 @@ from helper import generate_trials, check_paths
 import time
 
 """
-This expiriment is designed to determine a participants ability to destinguish stimuli presented in their right and left visual 
-field. 
+This expiriment is designed to determine a participants ability to destinguish stimuli presented in their right and left visual field. 
+Stimuli are presented on a body and appear in one of four locations: left hand, right hand, left foot, right foot.
+The body locations will be highlighted in either yellow or green.
+Participants will be asked to press the 'z' key if the left side of the body is highlighted and the 'm' key if the right side of the body is highlighted and must respond within 2 seconds.
+Participants will recieve feedback on their responses. Brief pauses will be given after every 10 trials.
 
-This experiment was created for UCSD's COGS 219 (WI25) Final Project using PsychoPy (v2024.1.1).
+This experiment was created partly for UCSD's COGS 219 (WI25) Final Project using PsychoPy (v2024.1.1).
 
 Updated 02/21/2025 by JA 
 """
@@ -77,7 +80,7 @@ instruction_dict = {
     # Prepare to start the task
     5.0 : "You are now ready to start the task.\n\nPress 'z' or 'm' to begin.",
     # Break Instructions
-    'break' : 'Take a short break.\n\nPress "z" or "m" when you are ready to continue.',
+    'break' : 'Take a short break. You will be able to continue after 5 seconds.\n\nPress "z" or "m" when you are ready to continue.',
     # MISC
     'q' : 'You pressed the "q" key. The experiment will now end.',
     'slow' : 'Too Slow!',
@@ -202,6 +205,7 @@ for trial in trials:
     fb = get_feedback(key_that_you_pressed, part, reaction_times[-1])
     if (trial_num%10) == 0: # Break every 10 trials
         instruct('break')
+        core.wait(5.0)
         event.waitKeys(keyList=['z','m'])
 
     # emergency Q kill switch
