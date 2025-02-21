@@ -206,7 +206,7 @@ event.waitKeys(keyList=['z','m'])
 # run the task
 trial_num = 1
 results_file = open(f'{current_directory}/data/{runtime_vars["subj_code"]}_LeftRight_data.csv', 'w')
-results_file.write('subj_code,seed,part,plan_or_exec,correct,reaction_time\n')
+results_file.write('trial_num,subj_code,seed,part,plan_or_exec,correct,reaction_time\n')
 for trial in trials:
     # get the trial variables
     subj_code, seed, part, plan_or_exec = trial
@@ -225,9 +225,9 @@ for trial in trials:
     if key_that_you_pressed and key_that_you_pressed[0] == 'q':
         break 
     
-    trial_num += 1
     # record the results
-    results_file.write(f'{subj_code},{seed},{part},{plan_or_exec},{fb},{reaction_times[-1]}\n')
+    results_file.write(f'{trial_num},{subj_code},{seed},{part},{plan_or_exec},{fb},{reaction_times[-1]}\n')
+    trial_num += 1
 
 # Shut down
 results_file.close()
