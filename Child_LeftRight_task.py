@@ -59,9 +59,15 @@ foot_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_p
 foot_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_plan.png', pos=[0,0])
 foot_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_exec.png', pos=[0,0])
 foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_exec.png', pos=[0,0])
+stimuli_dict = {
+    'hand_l_plan': hand_l_plan,'hand_r_plan': hand_r_plan,
+    'hand_l_exec': hand_l_exec,'hand_r_exec': hand_r_exec,
+    'foot_l_plan': foot_l_plan,'foot_r_plan': foot_r_plan,
+    'foot_l_exec': foot_l_exec,'foot_r_exec': foot_r_exec,
+}
 #  SOUND STIMULI
 # correct_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_beep_earn_point_pick_up_item_001_78373.wav')
-#  incorrect_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_high_pitched_buzzer_78377.wav')
+# incorrect_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_high_pitched_buzzer_78377.wav')
 #  TEXT STIMULI
 instruction_dict = {
     'good': 'Great Job!',
@@ -141,6 +147,17 @@ event.waitKeys(keyList=['z','m'])
 instruct(5.0)
 event.waitKeys(keyList=['z','m'])
 
+# run the task
+for trial in trials[:5]:
+    # get the trial variables
+    subj_code, seed, part, plan_or_exec = trial
+    figure_key = f'{part}_{plan_or_exec}'
+    figure.draw()
+    stimuli_dict[figure_key].draw()
+    win.flip()
+    key_that_you_pressed = event.waitKeys(keyList=['z','m'], maxWait=2.0)
+
+    
 
 # Shut down
 win.close()
