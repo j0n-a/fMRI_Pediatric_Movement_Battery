@@ -1,7 +1,7 @@
 # imports
 from psychopy import visual, sound, event, core, gui
 import os
-from helper import generate_trials
+from helper import generate_trials, check_paths
 import time
 
 """
@@ -10,28 +10,11 @@ field.
 
 This experiment was created for UCSD's COGS 219 (WI25) Final Project using PsychoPy (v2024.1.1).
 
-Updated 02/20/2025 by JA 
+Updated 02/21/2025 by JA 
 """
-
 ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
 current_directory = os.path.dirname(os.path.abspath(__file__))
-# Check that stimuli are available
-if not os.path.exists(f'{current_directory}/stimuli/figure.png'):
-    if not os.path.exists(f'{current_directory}/stimuli'): # Does the folder exist?
-        raise FileNotFoundError(f'Stimuli folder not found in {current_directory}.\nPlease ensure that the stimuli folder is in the same directory as this script.')
-    else: # Does the figure exist?
-        raise FileNotFoundError(f'Figure not found in {current_directory}/stimuli.\nPlease ensure that the stimuli folder contains the required .png files distributed with these programs.')
-# Check that there is a trials folder and if not make it
-if not os.path.exists(f'{current_directory}/trials'):
-    print(f'Trials folder not found in {current_directory}. Creating trials folder here:\n\t{current_directory}/trials.')
-    os.makedirs(f'{current_directory}/trials')
-    if not os.path.exists(f'{current_directory}/trials/LeftRight_trials'):
-        print(f'LeftRight_trials folder not found in {current_directory}/trials. Creating LeftRight_trials folder here:\n\t{current_directory}/trials/LeftRight_trials.')
-        os.makedirs(f'{current_directory}/trials/LeftRight_trials')
-# Check that there is a data folder and if not we make it
-if not os.path.exists(f'{current_directory}/data'):
-    print(f'Data folder not found in {current_directory}. Creating data folder here:\n\t{current_directory}/data.')
-    os.makedirs(f'{current_directory}/data')
+check_paths(current_directory)
 
 ##### Get runtime variables with the psychopy GUI#####
 def get_runtime_vars(vars_to_get,order,exp_version="experiment_code_for_reference"):

@@ -57,3 +57,34 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
 
     #close the file
     trial_file.close()
+
+def check_paths(current_directory):
+    '''
+    Check that the paths for the stimuli and the trials exist
+    '''
+    import os
+
+    #check that current_directory exists, is a string, and is a directory
+    if not isinstance(current_directory,str):
+        raise ValueError('ERROR: current_directory must be a string.')
+    elif not os.path.isdir(current_directory):
+        raise FileNotFoundError('ERROR: current_directory must be a string that points to a directory.')
+    
+    ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
+    # Check that stimuli are available
+    if not os.path.exists(f'{current_directory}/stimuli/figure.png'):
+        if not os.path.exists(f'{current_directory}/stimuli'): # Does the folder exist?
+            raise FileNotFoundError(f'ERROR: Stimuli folder not found in {current_directory}.\nPlease ensure that the stimuli folder is in the same directory as this script.')
+        else: # Does the figure exist?
+            raise FileNotFoundError(f'ERROR: Figure not found in {current_directory}/stimuli.\nPlease ensure that the stimuli folder contains the required .png files distributed with these programs.')
+    # Check that there is a trials folder and if not make it
+    if not os.path.exists(f'{current_directory}/trials'):
+        print(f'Trials folder not found in {current_directory}. Creating trials folder here:\n\t{current_directory}/trials.')
+        os.makedirs(f'{current_directory}/trials')
+        if not os.path.exists(f'{current_directory}/trials/LeftRight_trials'):
+            print(f'LeftRight_trials folder not found in {current_directory}/trials. Creating LeftRight_trials folder here:\n\t{current_directory}/trials/LeftRight_trials.')
+            os.makedirs(f'{current_directory}/trials/LeftRight_trials')
+    # Check that there is a data folder and if not we make it
+    if not os.path.exists(f'{current_directory}/data'):
+        print(f'Data folder not found in {current_directory}. Creating data folder here:\n\t{current_directory}/data.')
+        os.makedirs(f'{current_directory}/data')
