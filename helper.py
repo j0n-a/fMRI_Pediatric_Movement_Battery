@@ -12,6 +12,8 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     # break if you are not given a task
     if task is None:
         raise ValueError('ERROR: You must specify a task')
+    elif task not in ['LeftRight', 'GoNoGO', 'ActionControl']:
+        raise ValueError('ERROR: You must specify a valid task\nValid tasks are: "LeftRight", "GoNoGO", "ActionControl"')
 
     # define general parameters and functions here
     random.seed(seed)
@@ -33,18 +35,25 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
 
     #write header
     separator = ','
-    header = separator.join(['subj_code','seed','part','plan_or_exec'])
-    trial_file.write(header+'\n')
     
     # make and write trials 
     trials = []
-    for i in range(num_trials):
-        pick_part = i%len(parts)
-        pick_plan_or_exec = (i//len(parts))%len(plan_or_exec)
-        trials.append([subj_code, seed, parts[pick_part], plan_or_exec[pick_plan_or_exec]])
-    random.shuffle(trials) # shuffle the trials
-    for trial in trials:
-        trial_file.write(separator.join([str(x) for x in trial])+'\n')
+    if task == 'LeftRight':
+        header = separator.join(['subj_code','seed','part','plan_or_exec'])
+        trial_file.write(header+'\n')
+        for i in range(num_trials):
+            pick_part = i%len(parts)
+            pick_plan_or_exec = (i//len(parts))%len(plan_or_exec)
+            trials.append([subj_code, seed, parts[pick_part], plan_or_exec[pick_plan_or_exec]])
+        random.shuffle(trials) # shuffle the trials
+        for trial in trials:
+            trial_file.write(separator.join([str(x) for x in trial])+'\n')
+    elif task == 'GoNoGO':
+        print('GoNoGO trials not yet implemented')
+    elif task == 'ActionControl':
+        print('ActionControl trials not yet implemented')
+    else:
+        raise ValueError('ERROR: You must specify a valid task\nValid tasks are: "LeftRight", "GoNoGO", "ActionControl"')
 
     #close the file
     trial_file.close()
