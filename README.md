@@ -6,6 +6,7 @@ The tasks provided here are designed to be consistent with the movement task bat
 -------------------------------------------------------------------------------------
 ## Left-Right Task 
 `Child_LeftRight_task.py`
+
 This task is designed to establish a participants ability to distinguis between the left and the right side of their body. This task is meant to establish minimum task compentancy prior to undertaking the task in the MRI scanner.
 
 ## Other Tasks
