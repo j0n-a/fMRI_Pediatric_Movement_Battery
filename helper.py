@@ -27,7 +27,9 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     try:
         os.mkdir('trials')
     except FileExistsError:
-        trial_file=open(f"trials/{subj_code}_{task}_trials.csv","w")
+        # directory already exists
+        pass
+    trial_file=open(f"trials/{subj_code}_{task}_trials.csv","w")
 
     #write header
     separator = ','

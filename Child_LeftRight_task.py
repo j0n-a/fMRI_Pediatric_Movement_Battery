@@ -204,7 +204,8 @@ event.waitKeys(keyList=['z','m'])
 
 # run the task
 trial_num = 1
-for trial in trials[:5]:
+results_file = open(f'{current_directory}/data/{runtime_vars["subj_code"]}_LeftRight_data.csv', 'w').write('subj_code,seed,part,plan_or_exec,correct,reaction_time\n')
+for trial in trials:
     # get the trial variables
     subj_code, seed, part, plan_or_exec = trial
     present_stimulus(part, plan_or_exec)
@@ -216,13 +217,17 @@ for trial in trials[:5]:
     if (trial_num%10) == 0: # Break every 10 trials
         instruct('break')
         event.waitKeys(keyList=['z','m'])
-    
+
     # emergency Q kill switch
     if key_that_you_pressed and key_that_you_pressed[0] == 'q':
         break 
     
     get_feedback(key_that_you_pressed, part, reaction_times[-1])
+    trial_num += 1
+    # record the results
+    results_file.write(f'{subj_code},{seed},{part},{plan_or_exec},{get_feedback(key_that_you_pressed, part, reaction_times[-1])},{reaction_times[-1]}\n')
 
 # Shut down
+results_file.close()
 win.close()
 core.quit()
