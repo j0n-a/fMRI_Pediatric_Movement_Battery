@@ -2,6 +2,7 @@
 from psychopy import visual, sound, event, core, gui
 import os
 from helper import generate_trials
+import time
 
 """
 This expiriment is designed to determine a participants ability to destinguish stimuli presented in their right and left visual 
@@ -44,6 +45,9 @@ runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_trials':48},
 # print(runtime_vars)
 
 ##### Set up psychopy features for the task #####
+# timer
+timer = core.Clock()
+reaction_times = []
 # set window paramaters
 win = visual.Window([1000,800], color='lightgray', units='pix', checkTiming=False)
 # preopen all the important stimuli
@@ -89,6 +93,8 @@ instruction_dict = {
     4.8 : "You will have a short break after every 10 trials.\n\nPress 'z' or 'm' to continue.",
     # Prepare to start the task
     5.0 : "You are now ready to start the task.\n\nPress 'z' or 'm' to begin.",
+    # Break Instructions
+    'break' : 'Take a short break.\n\nPress "z" or "m" when you are ready to continue.',
 }
 instruction = visual.TextStim(win, text='', color='black', pos=[0,0])
 def instruct(x):
@@ -96,6 +102,14 @@ def instruct(x):
     core.wait(0.25)
     instruction.setText(instruction_dict[x])
     instruction.draw()
+    win.flip()
+
+def present_stimulus(part, plan_or_exec):
+    win.flip()
+    core.wait(0.25)
+    figure.draw()
+    stimuli_dict[f'{part}_{plan_or_exec}'].draw()
+    timer.reset()
     win.flip()
 
 ##### Generate trials #####
@@ -148,15 +162,23 @@ instruct(5.0)
 event.waitKeys(keyList=['z','m'])
 
 # run the task
+trial_num = 1
 for trial in trials[:5]:
     # get the trial variables
     subj_code, seed, part, plan_or_exec = trial
-    figure_key = f'{part}_{plan_or_exec}'
-    figure.draw()
-    stimuli_dict[figure_key].draw()
-    win.flip()
-    key_that_you_pressed = event.waitKeys(keyList=['z','m'], maxWait=2.0)
+    present_stimulus(part, plan_or_exec)
 
+    key_that_you_pressed = event.waitKeys(keyList=['z','m','q'], maxWait=2.0)
+    reaction_times = reaction_times + [round(timer.getTime() * 1000,0)] # get reaction time in MS
+    print(reaction_times[-1])
+    
+    if (trial_num%10) == 0: # Break every 10 trials
+        instruct('break')
+        event.waitKeys(keyList=['z','m'])
+    
+    # emergency Q kill switch
+    if key_that_you_pressed and key_that_you_pressed[0] == 'q':
+        break 
     
 
 # Shut down
