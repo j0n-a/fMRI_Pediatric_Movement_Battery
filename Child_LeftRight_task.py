@@ -23,19 +23,45 @@ if not os.path.exists(f'{current_directory}/stimuli/figure.png'):
 if not os.path.exists(f'{current_directory}/trials'):
     print(f'Trials folder not found in {current_directory}. Creating trials folder here:\n\t{current_directory}/trials.')
     os.makedirs(f'{current_directory}/trials')
+    if not os.path.exists(f'{current_directory}/trials/LeftRight_trials'):
+        print(f'LeftRight_trials folder not found in {current_directory}/trials. Creating LeftRight_trials folder here:\n\t{current_directory}/trials/LeftRight_trials.')
+        os.makedirs(f'{current_directory}/trials/LeftRight_trials')
 # Check that there is a data folder and if not we make it
 if not os.path.exists(f'{current_directory}/data'):
     print(f'Data folder not found in {current_directory}. Creating data folder here:\n\t{current_directory}/data.')
     os.makedirs(f'{current_directory}/data')
 
+##### Get runtime variables with the psychopy GUI#####
+def get_runtime_vars(vars_to_get,order,exp_version="experiment_code_for_reference"):
+    infoDlg = gui.DlgFromDict(dictionary=vars_to_get, title=exp_version, order=order)
+    if infoDlg.OK:
+        return vars_to_get
+    else: 
+        print('User Cancelled')
+order =  ['subj_code','seed','num_reps']
+runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_reps':50}, order)
+print(runtime_vars)
 
-
+##### Set up psychopy features for the task #####
 # set window paramaters
-# win = visual.Window([1000,800], color="lightgray", units='pix', checkTiming=False)
+win = visual.Window([1000,800], color='lightgray', units='pix', checkTiming=False)
+# preopen all the important stimuli
+#  FIGURE STIMULI
+figure = visual.ImageStim(win, image=f'{current_directory}/stimuli/figure.png', pos=[0,0])
+#  HAND STIMULI
+hand_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_plan.png', pos=[0,0])
+hand_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_plan.png', pos=[0,0])
+hand_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_execute.png', pos=[0,0])
+hand_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_execute.png', pos=[0,0])
+#  FOOT STIMULI
+foot_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_plan.png', pos=[0,0])
+foot_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_plan.png', pos=[0,0])
+foot_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_execute.png', pos=[0,0])
+foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_execute.png', pos=[0,0])
+#  TEXT STIMULI
+instruction = visual.TextStim(win, text="text", color="black", pos=[0,0])
 
 
-
-#figure = visual.ImageStim(win, image="stimuli/images/placeholder.jpg", pos=[0,0])
 
 """# get runtime variables 
 order = ['subj_code', 'seed']
