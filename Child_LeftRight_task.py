@@ -41,7 +41,7 @@ def get_runtime_vars(vars_to_get,order,exp_version="experiment_code_for_referenc
     else: 
         print('User Cancelled')
 order =  ['subj_code','seed','num_trials']
-runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_trials':48}, order)
+runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_trials':50}, order)
 # print(runtime_vars)
 
 ##### Set up psychopy features for the task #####
@@ -152,6 +152,7 @@ def get_feedback(key_that_you_pressed, part, reaction_time):
     else: # no key press too slow
         display_feedback('slow',time=1.0)
         output = 0
+    return(output)
 
 ##### Generate trials #####
 generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['num_trials'], task='LeftRight')
@@ -204,7 +205,8 @@ event.waitKeys(keyList=['z','m'])
 
 # run the task
 trial_num = 1
-results_file = open(f'{current_directory}/data/{runtime_vars["subj_code"]}_LeftRight_data.csv', 'w').write('subj_code,seed,part,plan_or_exec,correct,reaction_time\n')
+results_file = open(f'{current_directory}/data/{runtime_vars["subj_code"]}_LeftRight_data.csv', 'w')
+results_file.write('subj_code,seed,part,plan_or_exec,correct,reaction_time\n')
 for trial in trials:
     # get the trial variables
     subj_code, seed, part, plan_or_exec = trial
@@ -214,6 +216,7 @@ for trial in trials:
     reaction_times = reaction_times + [round(timer.getTime() * 1000,0)] # get reaction time in MS
     print(reaction_times[-1])
     
+    fb = get_feedback(key_that_you_pressed, part, reaction_times[-1])
     if (trial_num%10) == 0: # Break every 10 trials
         instruct('break')
         event.waitKeys(keyList=['z','m'])
@@ -222,10 +225,9 @@ for trial in trials:
     if key_that_you_pressed and key_that_you_pressed[0] == 'q':
         break 
     
-    get_feedback(key_that_you_pressed, part, reaction_times[-1])
     trial_num += 1
     # record the results
-    results_file.write(f'{subj_code},{seed},{part},{plan_or_exec},{get_feedback(key_that_you_pressed, part, reaction_times[-1])},{reaction_times[-1]}\n')
+    results_file.write(f'{subj_code},{seed},{part},{plan_or_exec},{fb},{reaction_times[-1]}\n')
 
 # Shut down
 results_file.close()
