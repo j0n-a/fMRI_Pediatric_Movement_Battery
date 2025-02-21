@@ -1,5 +1,5 @@
 # imports
-from psychopy import visual, event, core, gui
+from psychopy import visual, sound, event, core, gui
 import os
 from helper import generate_trials
 
@@ -59,10 +59,14 @@ foot_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_p
 foot_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_plan.png', pos=[0,0])
 foot_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_exec.png', pos=[0,0])
 foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_exec.png', pos=[0,0])
+#  SOUND STIMULI
+# correct_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_beep_earn_point_pick_up_item_001_78373.wav')
+#  incorrect_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_high_pitched_buzzer_78377.wav')
 #  TEXT STIMULI
 instruction_dict = {
     # Initial Explanation
-    1.0 : 'In this expiriment, you will identify what side of the body a something is happening on.',
+    0.0 : 'Welcome to the Left Right Task!\n\nPress space to continue.',
+    1.0 : 'In this expiriment, you will identify what side of the body a something is happening on.\n\nPress space to continue.',
     # Hand Placement Instructions
     2.0 : "Please place one finger of your left hand on the 'z' key and press it.",
     2.1 : 'Great job!',
@@ -79,9 +83,6 @@ instruction_dict = {
     4.5 : 'You will get feedback on whether you are correct or not, so you can learn from your mistakes.',
     4.6 : "If you make a mistake or don't asswer fast enough, you will see a red X and hear this buzzer.",
     4.7 : "If you answer correctly, you will see a hear this sound and move on to the next trial.",
-
-    
-
 }
 instruction = visual.TextStim(win, text='', color='black', pos=[0,0])
 
@@ -96,75 +97,18 @@ with open(f'{current_directory}/trials/{runtime_vars["subj_code"]}_LeftRight_tri
             continue
         trials.append(line.strip().split(','))
 
+##### Run the task #####
 
-# # placeholder = visual.Rect(win,width=180,height=80, fillColor="lightgray",lineColor="black", lineWidth=6,pos=[0,0])
-# instruction = visual.TextStim(win,text="In this experiment, you need to move your body according to the instructions.\nDuring the experiment, a symbol will be drawn on a specific body part.\n (PIC) \n\n\n PRESS any key to proceed.",
-#                               color="black", pos=[0,0]) 
-
-# instruction.draw()
-# win.flip()
-
-# # Wait for a key press to proceed
-# while not event.getKeys():
-#     pass  # Wait until any key is pressed
-                              
-# instruction = visual.TextStim(win, text="During the experiment, you will see one of these three arrows: \n\n\n (PIC of all 3 arrows)", 
-#                               color="black",pos=[0,0])  
-# instruction.draw()
-# win.flip()
-# core.wait(5)
-
-# # make this into for loop later? 
-# instruction = visual.TextStim(win, text="When you see this arrow, \n move your body part LEFT and RIGHT \n\n\n (PIC1)", 
-#                               color="black",pos=[0,0]) 
-
-# instruction.draw()
-# win.flip()
-# core.wait(5)
-
-# instruction = visual.TextStim(win, text="When you see this arrow, \n Rotate your body part CLOCKWISE \n\n\n (PIC2)", 
-#                               color="black",pos=[0,0]) 
-
-# instruction.draw()
-# win.flip()
-# core.wait(5)
-
-# instruction = visual.TextStim(win, text="When you see this arrow, \n Rotate your body part ANTICLOCKWISE \n\n\n (PIC3)", 
-#                               color="black",pos=[0,0]) 
-
-# instruction.draw()
-# win.flip()
-# core.wait(5)
-
-# instruction = visual.TextStim(win, text="Let's have a practice run. How would you move your body? \n\n\n (PIC) \n\n\n Press any key to move on after instructor's approval", 
-#                               color="black",pos=[0,0]) 
-
-# instruction.draw()
-# win.flip()
-
-# # Wait for a key press to proceed
-# while not event.getKeys():
-#     pass  # Wait until any key is pressed
-
-# if event.getKeys(['q']):
-#     win.close()
-#     core.quit()
-
-
-# """
-# Original adult action control task paradigm: 
-
-# # single movement trial (6~11.5s)
-
-#      # planning phase (2~6.5s)
-#      # execution phase (4~8.5s)
-#      # fixation phase 
-
-#  # dual movement trial (6~11.5s)
-#      # planning phase (2~6.5s)
-#      # execution phase (4~8.5s)
-#      # fixation phase 
-# """
-
-
-
+# Initial Explanation
+instruction.setText(instruction_dict[0.0])
+instruction.draw()
+win.flip()
+event.waitKeys(keyList=['space'])
+instruction.setText(instruction_dict[1.0])
+instruction.draw()
+win.flip()
+event.waitKeys(keyList=['space'])
+instruction.setText(instruction_dict[2.0])
+instruction.draw()
+win.flip()
+event.waitKeys(keyList=['z'])

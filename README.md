@@ -15,7 +15,7 @@ Etc. etc. etc.
 
 -------------------------------------------------------------------------------------
 
-Stimuli and associated information can be found in the `stimuli` subfolder.
+Stimuli and associated information can be found in the [`stimuli` subfolder](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/tree/main/stimuli).
 
 [^1]: Gordon, E.M., Chauvin, R.J., Van, A.N. et. al. A somato-cognitive action network alternates with effector regions in motor cortex. Nature 617, 351–359 (2023). https://doi.org/10.1038/s41586-023-05964-2
 [^2]: Raschle, N. M., Lee, M., Buechler, R., Christodoulou, J. A., Chang, M., Vakil, M., Stering, P. L., & Gaab, N. (2009). Making MR imaging child's play - pediatric neuroimaging protocol, guidelines and procedure. Journal of visualized experiments : JoVE, (29), 1309. https://doi.org/10.3791/1309
