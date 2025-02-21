@@ -11,6 +11,7 @@ This task is designed to establish a participant's ability to distinguish betwee
 
 ## Go/NoGo Task
 [`Child_GoNoGo_task.py`](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/blob/main/Child_GoNoGo_task.py)
+
 Description of other tasks.
 
 ## Etc.
@@ -19,10 +20,17 @@ Etc. etc. etc.
 ## Helper File
 [`helper.py`](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/blob/main/helper.py)
 
-Helper functions used in other tasks are described below:
-- `generate_trials(subj_code, seed, numtriasl=48, task=None)`
-- `check_paths(current_directory)`
+Helper functions used in other tasks. These functions include:
+### `generate_trials(subj_code, seed, num_trials=48, task=None)`
 
+This function generates trial lists used in the tasks. 
+> - `subject_code`: A unique string to identify subjects.
+> - `seed`: An integer that will be used as a basis for the pseudo-randomization used in the rest of the function.
+> - `num_trials`: An integer representing the total number of stimuli you'd like to display during a task.
+> - `task`: A string representing which task the trials are bing generated for. Valid inputs include `'LeftRight'`, `'GoNoGO'`, and `'ActionControl'`.
+
+### `check_paths(current_directory)`
+> - `current_directory`: A string representing the current full file path of the directory running the function.
 -------------------------------------------------------------------------------------
 
 Stimuli and associated information can be found in the [`stimuli` subfolder](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/tree/main/stimuli).
