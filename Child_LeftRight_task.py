@@ -5,11 +5,11 @@ from helper import generate_trials, check_paths
 import time
 
 """
-This expiriment is designed to determine a participants ability to destinguish stimuli presented in their right and left visual field. 
-Stimuli are presented on a body and appear in one of four locations: left hand, right hand, left foot, right foot.
+This task is meant to establish minimum task competency prior to undertaking the task in the MRI scanner. This expiriment is designed to determine a participant's ability to distinguish stimuli presented in their right and left visual field. 
+Stimuli are presented on a body and appear in one of four locations: left hand, right hand, left foot, and right foot.
 The body locations will be highlighted in either yellow or green.
-Participants will be asked to press the 'z' key if the left side of the body is highlighted and the 'm' key if the right side of the body is highlighted and must respond within 2 seconds.
-Participants will recieve feedback on their responses. Brief pauses will be given after every 10 trials.
+Participants will be asked to press the 'z' key if the left side of the body is highlighted and the 'm' key if the right side of the body is highlighted, and they must respond within 2 seconds.
+Participants will receive feedback on their responses. Brief pauses will be given after every 10 trials.
 
 This experiment was created partly for UCSD's COGS 219 (WI25) Final Project using PsychoPy (v2024.1.1).
 
