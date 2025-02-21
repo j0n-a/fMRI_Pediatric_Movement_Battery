@@ -60,7 +60,30 @@ foot_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_p
 foot_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_exec.png', pos=[0,0])
 foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_exec.png', pos=[0,0])
 #  TEXT STIMULI
-instruction = visual.TextStim(win, text="text", color="black", pos=[0,0])
+instruction_dict = {
+    # Initial Explanation
+    1.0 : 'In this expiriment, you will identify what side of the body a something is happening on.',
+    # Hand Placement Instructions
+    2.0 : "Please place one finger of your left hand on the 'z' key and press it.",
+    2.1 : 'Great job!',
+    2.2 : "That's not quite right. Place one finger of your left hand on the 'z' key and press it.",
+    3.0 : "Please place one finger of your right hand on the 'm' key and press it.",
+    3.1 : 'Great job!',
+    3.2 : "That's not quite right. Place one finger of your right hand on the 'm' key and press it.",
+    # Explain the task
+    4.0 : 'On the figure on the screen you you will see one of the hands or feet change color.',
+    4.1 : 'Your job is to press the key corresponding to the side of the body that changed color as fast as you can.',
+    4.2 : "If the left hand or foot changes color, press the 'z' key with your left hand.",
+    4.3 : "If the right hand or foot changes color, press the 'm' key with your right hand.",
+    4.4 : 'You will only have 2 seconds to respond, so answer as fast as you can.',
+    4.5 : 'You will get feedback on whether you are correct or not, so you can learn from your mistakes.',
+    4.6 : "If you make a mistake or don't asswer fast enough, you will see a red X and hear this buzzer.",
+    4.7 : "If you answer correctly, you will see a hear this sound and move on to the next trial.",
+
+    
+
+}
+instruction = visual.TextStim(win, text='', color='black', pos=[0,0])
 
 ##### Generate trials #####
 generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['num_trials'], task='LeftRight')
@@ -73,21 +96,6 @@ with open(f'{current_directory}/trials/{runtime_vars["subj_code"]}_LeftRight_tri
             continue
         trials.append(line.strip().split(','))
 
-"""# get runtime variables 
-order = ['subj_code', 'seed']
-runtime_vars = get_runtime_vars({'subj_code':'subj_01', 'seed':10}, order)
-print(runtime_vars)
-
-# generate trials
-generate_trials(runtime_vars['subj_code'], runtime_vars['seed'])
-
-positions = {'center': (0,0)}
-separator=","
-
-# preload
-images_directory = load_files(os.path.join(os.getcwd(),"stimuli","images"), '.jpg',fileType="image",win=win)
-print(images_dictionary)
-"""
 
 # # placeholder = visual.Rect(win,width=180,height=80, fillColor="lightgray",lineColor="black", lineWidth=6,pos=[0,0])
 # instruction = visual.TextStim(win,text="In this experiment, you need to move your body according to the instructions.\nDuring the experiment, a symbol will be drawn on a specific body part.\n (PIC) \n\n\n PRESS any key to proceed.",
