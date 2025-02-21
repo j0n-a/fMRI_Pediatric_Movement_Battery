@@ -58,6 +58,7 @@ stimuli_dict = {
 #  SOUND STIMULI
 # correct_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_beep_earn_point_pick_up_item_001_78373.wav')
 # incorrect_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_high_pitched_buzzer_78377.wav')
+
 #  TEXT STIMULI
 instruction_dict = {
     'good': 'Great Job!',
@@ -87,6 +88,7 @@ instruction_dict = {
     'incorrect' : 'Incorrect!',
     'fast' : 'Too Fast!\n\nPlease wait for the trial to start.',
 }
+
 instruction = visual.TextStim(win, text='', color='black', pos=[0,0])
 def instruct(x):
     win.flip()
