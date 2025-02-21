@@ -4,7 +4,7 @@ Additional information regarding the task can be found in the `README.md` in the
 
 Visual stimuli were created using Adobe Illustrator. Illustrator files can be found in the `illustrator_files` subdirectory.
 
-Sound stimuli were retrived from [zapsplat.com](zapsplat.com) which offers free sound effects for both commercial and non comercial use. Sounds can be downloaded from by clicking following links:
+Sound stimuli were retrived from [zapsplat.com](zapsplat.com) which offers free sound effects for both commercial and non comercial use. More infromation about the ZapSplat's Licencing agreement can be found [here](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/blob/main/stimuli/ZapSplat-EULA-Standard-License.pdf). Sounds can be downloaded from by clicking following links:
 - Incorrect Answer Noise: ["Game sound, short high pitched buzzer"](https://www.zapsplat.com/music/game-sound-short-high-pitched-buzzer/)
 - Correct Answer Noise: ["Game sound, short beep, earn point or pick up item 1"](https://www.zapsplat.com/music/game-sound-short-beep-earn-point-or-pick-up-item-1/)
 
