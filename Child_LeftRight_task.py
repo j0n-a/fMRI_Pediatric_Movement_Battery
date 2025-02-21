@@ -95,6 +95,11 @@ instruction_dict = {
     5.0 : "You are now ready to start the task.\n\nPress 'z' or 'm' to begin.",
     # Break Instructions
     'break' : 'Take a short break.\n\nPress "z" or "m" when you are ready to continue.',
+    # MISC
+    'q' : 'You pressed the "q" key. The experiment will now end.',
+    'slow' : 'Too Slow!',
+    'incorrect' : 'Incorrect!',
+    'fast' : 'Too Fast!\n\nPlease wait for the trial to start.',
 }
 instruction = visual.TextStim(win, text='', color='black', pos=[0,0])
 def instruct(x):
@@ -104,6 +109,15 @@ def instruct(x):
     instruction.draw()
     win.flip()
 
+def display_feedback(feedback,time=1.0):
+    # incorrect_sound.play()
+    instruction.setText(instruction_dict[feedback])
+    instruction.setColor('red')
+    instruction.draw()
+    win.flip()
+    core.wait(time)
+    instruction.setColor('black')
+
 def present_stimulus(part, plan_or_exec):
     win.flip()
     core.wait(0.25)
@@ -111,6 +125,33 @@ def present_stimulus(part, plan_or_exec):
     stimuli_dict[f'{part}_{plan_or_exec}'].draw()
     timer.reset()
     win.flip()
+
+def get_feedback(key_that_you_pressed, part, reaction_time):
+    if key_that_you_pressed:
+        # evaulate a key press
+        if reaction_time < 200:
+            display_feedback('fast',time=4.0)
+            instruction.setColor('black')
+            output = 0
+        elif key_that_you_pressed[0] == 'z':
+            if part in ['hand_l', 'foot_l']:
+                # correct_sound.play()
+                output = 1
+            else:
+                # incorrect_sound.play()
+                display_feedback('incorrect',time=1.0)
+                output = 0
+        elif key_that_you_pressed[0] == 'm':
+            if part in ['hand_r', 'foot_r']:
+                # correct_sound.play()
+                output = 1
+            else:
+                # incorrect_sound.play()
+                display_feedback('incorrect',time=1.0)
+                output = 0
+    else: # no key press too slow
+        display_feedback('slow',time=1.0)
+        output = 0
 
 ##### Generate trials #####
 generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['num_trials'], task='LeftRight')
@@ -180,6 +221,7 @@ for trial in trials[:5]:
     if key_that_you_pressed and key_that_you_pressed[0] == 'q':
         break 
     
+    get_feedback(key_that_you_pressed, part, reaction_times[-1])
 
 # Shut down
 win.close()
