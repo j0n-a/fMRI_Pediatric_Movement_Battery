@@ -5,15 +5,23 @@ The tasks provided here are designed to be consistent with the movement task bat
 
 -------------------------------------------------------------------------------------
 ## Left-Right Task 
-`Child_LeftRight_task.py`
+[`Child_LeftRight_task.py`](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/blob/main/Child_LeftRight_task.py)
 
-This task is designed to establish a participants ability to distinguis between the left and the right side of their body. This task is meant to establish minimum task compentancy prior to undertaking the task in the MRI scanner.
+This task is designed to establish a participant's ability to distinguish between the left and right sides of their body to establish minimum task competency prior to undertaking the full task in the MRI scanner. Stimuli are presented on the body and appear in one of four locations: the left hand, the right hand, the left foot, or the right foot. The body locations will be highlighted in either yellow or green. Participants will be asked to press the 'z' key if the left side of the body is highlighted and the 'm' key if the right side of the body is highlighted, and they must respond within 2 seconds. Participants will receive feedback on their responses. Brief pauses will be given after every 10 trials.
 
-## Other Tasks
-Discription of other task.
+## Go/NoGo Task
+[`Child_GoNoGo_task.py`](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/blob/main/Child_GoNoGo_task.py)
+Description of other tasks.
 
 ## Etc.
 Etc. etc. etc.
+
+## Helper File
+[`helper.py`](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/blob/main/helper.py)
+
+Helper functions used in other tasks are described below:
+- `generate_trials(subj_code, seed, numtriasl=48, task=None)`
+- `check_paths(current_directory)`
 
 -------------------------------------------------------------------------------------
 
