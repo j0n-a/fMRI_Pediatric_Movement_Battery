@@ -56,8 +56,8 @@ stimuli_dict = {
     'foot_l_exec': foot_l_exec,'foot_r_exec': foot_r_exec,
 }
 #  SOUND STIMULI
-# correct_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_beep_earn_point_pick_up_item_001_78373.wav')
-# incorrect_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_high_pitched_buzzer_78377.wav')
+correct_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_beep_earn_point_pick_up_item_001_78373.wav')
+incorrect_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_high_pitched_buzzer_78377.wav')
 
 #  TEXT STIMULI
 instruction_dict = {
@@ -98,7 +98,7 @@ def instruct(x):
     win.flip()
 
 def display_feedback(feedback,time=1.0):
-    # incorrect_sound.play()
+    incorrect_sound.play()
     instruction.setText(instruction_dict[feedback])
     instruction.setColor('red')
     instruction.draw()
@@ -123,18 +123,18 @@ def get_feedback(key_that_you_pressed, part, reaction_time):
             output = 0
         elif key_that_you_pressed[0] == 'z':
             if part in ['hand_l', 'foot_l']:
-                # correct_sound.play()
+                correct_sound.play()
                 output = 1
             else:
-                # incorrect_sound.play()
+                incorrect_sound.play()
                 display_feedback('incorrect',time=1.0)
                 output = 0
         elif key_that_you_pressed[0] == 'm':
             if part in ['hand_r', 'foot_r']:
-                # correct_sound.play()
+                correct_sound.play()
                 output = 1
             else:
-                # incorrect_sound.play()
+                incorrect_sound.play()
                 display_feedback('incorrect',time=1.0)
                 output = 0
     else: # no key press too slow
