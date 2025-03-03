@@ -123,24 +123,29 @@ def get_feedback(key_that_you_pressed, part, reaction_time):
             output = 0
         elif key_that_you_pressed[0] == 'z':
             if part in ['hand_l', 'foot_l']:
-                correct_sound.play()
+                sound_off(correct_sound)
                 output = 1
             else:
-                incorrect_sound.play()
+                sound_off(incorrect_sound)
                 display_feedback('incorrect',time=1.0)
                 output = 0
         elif key_that_you_pressed[0] == 'm':
             if part in ['hand_r', 'foot_r']:
-                correct_sound.play()
+                sound_off(correct_sound)
                 output = 1
             else:
-                incorrect_sound.play()
+                sound_off(incorrect_sound)
                 display_feedback('incorrect',time=1.0)
                 output = 0
     else: # no key press too slow
         display_feedback('slow',time=1.0)
         output = 0
     return(output)
+
+def sound_off(sound):
+    sound.play()
+    core.wait(sound.duration)
+    sound.stop()
 
 ##### Generate trials #####
 generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['num_trials'], task='LeftRight')
@@ -181,10 +186,10 @@ event.waitKeys(keyList=['z','m'])
 instruct(4.5)
 event.waitKeys(keyList=['z','m'])
 instruct(4.6)
-# correct_sound.play()
+sound_off(correct_sound)
 event.waitKeys(keyList=['z','m'])
 instruct(4.7)
-# incorrect_sound.play()
+sound_off(incorrect_sound)
 event.waitKeys(keyList=['z','m'])
 instruct(4.8)
 event.waitKeys(keyList=['z','m'])
