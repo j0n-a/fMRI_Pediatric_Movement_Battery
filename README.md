@@ -14,8 +14,16 @@ This task is designed to establish a participant's ability to distinguish betwee
 
 Description of other tasks.
 
-## Etc.
-Etc. etc. etc.
+## Action Control Task
+[`Child_ActionControl_task.py`](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/blob/main/Child_ActionControl_task.py)
+
+This task is a child version of Action Control Task from [(Gordon et. al. 2023)](https://doi.org/10.1038/s41586-023-05964-2)[^1]. There are three conditions for this task.
+
+1) Body parts: left hand, right hand, left foot, right foot
+2) Movements: left-right, clockwise, counterclockwise
+3) Phases: plan (yellow arrow), execute (green arrow) - each up to 10 seconds
+
+Body parts and Movements are randomized, but plan phase always comes first before execute phase. Participants will be asked to plan and execute based on the given stimuli and will receive feedback from the instructor on their responses. Brief pauses will be given after every 10 trials.
 
 ## Helper File
 [`helper.py`](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/blob/main/helper.py)
