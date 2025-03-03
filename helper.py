@@ -5,6 +5,12 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     subj_code: a string corresponding to a participant's unique subject code
     seed: an integer specifying the random seed
     num_repetitions: integer specifying total times that combinations of trial type (congruent vs. incongruent) and orientation (upright vs. upside_down) should repeat (total number of trials = 4 * num_repetitions)
+    
+    Note
+    - edited ActionControl
+    - edited output folder path
+    
+    last updated 03/02, SP.
     '''
     import os
     import random
@@ -20,18 +26,18 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     # trial states
     parts = ['hand_l', 'foot_l', 'hand_r', 'foot_r']
     plan_or_exec = ['plan', 'exec']
-    movements = ['clockwise', 'counterclockwise','left_right','open_close']
+    movements = ['clockwise', 'counterclockwise','left_right'] # 'open_close'
     random.shuffle(parts) # we must shuffle the trials for taks that are not cleanly divisable by the number of permutations
     random.shuffle(plan_or_exec)
     random.shuffle(movements)
 
     # create a trials folder if it doesn't already exist
     try:
-        os.mkdir('trials')
+        os.mkdir(f'trials/{task}')
     except FileExistsError:
         # directory already exists
         pass
-    trial_file=open(f"trials/{subj_code}_{task}_trials.csv","w")
+    trial_file=open(f"trials/{task}/{subj_code}_{task}_trials.csv","w")
 
     #write header
     separator = ','
@@ -51,7 +57,16 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     elif task == 'GoNoGO':
         print('GoNoGO trials not yet implemented')
     elif task == 'ActionControl':
-        print('ActionControl trials not yet implemented')
+        header = separator.join(['subj_code','seed','part','plan_or_exec','movement'])
+        trial_file.write(header+'\n')
+        for i in range(num_trials // 2): # two trials (plan & execution) per iteration
+            pick_part = random.choice(parts)
+            pick_movement = random.choice(movements)
+            trials.append([subj_code,seed,pick_part,'plan',pick_movement])
+            trials.append([subj_code,seed,pick_part,'exec',pick_movement])
+        # random.shuffle(trials)
+        for trial in trials:
+            trial_file.write(separator.join([str(x) for x in trial]) + '\n')
     else:
         raise ValueError('ERROR: You must specify a valid task\nValid tasks are: "LeftRight", "GoNoGO", "ActionControl"')
 
@@ -84,6 +99,9 @@ def check_paths(current_directory):
         if not os.path.exists(f'{current_directory}/trials/LeftRight_trials'):
             print(f'LeftRight_trials folder not found in {current_directory}/trials. Creating LeftRight_trials folder here:\n\t{current_directory}/trials/LeftRight_trials.')
             os.makedirs(f'{current_directory}/trials/LeftRight_trials')
+        if not os.path.exists(f'{current_directory}/trials/ActionControl_trials'):
+            print(f'ActionControl_trials folder not found in {current_directory}/trials. Creating ActionControl_trials folder here:\n\t{current_directory}/trials/ActionControl_trials.')
+            os.makedirs(f'{current_directory}/trials/ActionControl_trials')
     # Check that there is a data folder and if not we make it
     if not os.path.exists(f'{current_directory}/data'):
         print(f'Data folder not found in {current_directory}. Creating data folder here:\n\t{current_directory}/data.')
