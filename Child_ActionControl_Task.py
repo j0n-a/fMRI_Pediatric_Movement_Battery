@@ -1,6 +1,6 @@
-from psychopy import visual, event, core, gui
+from psychopy import visual, sound, event, core, gui
 import os
-from helper import generate_trials, check_paths
+from helper_AC import generate_trials, check_paths
 
 '''
 This experiment was created for COGS 219 Final Project using PsychoPy (v2024.1.1).
@@ -15,11 +15,8 @@ Start with the right path!!
 - add sound? 
 - fixation after execution?
 - change path in the end
-- check output file
-- create illustration, instead of hand/feet, change it to arrow symbols (name them like: foot_l_plan_counterclockwise.png)
-- copy yellow arrows in stimuli folder
 
-last updated 03/02, SP
+last updated 03/05, SP
 '''
 
 ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
@@ -41,28 +38,49 @@ runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_trials':50},
 timer = core.Clock()
 reaction_times = []
 
-win = visual.Window([1000,800], color="lightgray", units='pix', checkTiming=False)
+win = visual.Window([1000,800], color="black", units='pix', checkTiming=False)
 
 # preload all the important stimuli
 # FIGURE STIMULI
-figure = visual.ImageStim(win, image=f'{current_directory}/stimuli/figure.png', pos=[0,0], size=[383.7,700])
+figure = visual.ImageStim(win, image=f'{current_directory}/stimuli/AC_stimuli/AC_figure.png', pos=[0,0], size=[500,700])
 
 #  HAND STIMULI
-hand_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_plan.png', pos=[0,0], size=[383.7,700])
-hand_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_plan.png', pos=[0,0], size=[383.7,700])
-hand_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_exec.png', pos=[0,0], size=[383.7,700])
-hand_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_exec.png', pos=[0,0], size=[383.7,700])
-#  FOOT STIMULI
-foot_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_plan.png', pos=[0,0], size=[383.7,700])
-foot_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_plan.png', pos=[0,0], size=[383.7,700])
-foot_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_exec.png', pos=[0,0], size=[383.7,700])
-foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_exec.png', pos=[0,0], size=[383.7,700])
-stimuli_dict = {
-    'hand_l_plan': hand_l_plan,'hand_r_plan': hand_r_plan,
-    'hand_l_exec': hand_l_exec,'hand_r_exec': hand_r_exec,
-    'foot_l_plan': foot_l_plan,'foot_r_plan': foot_r_plan,
-    'foot_l_exec': foot_l_exec,'foot_r_exec': foot_r_exec,
-}
+# hand_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_plan.png', pos=[0,0], size=[383.7,700])
+# hand_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_plan.png', pos=[0,0], size=[383.7,700])
+# hand_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_exec.png', pos=[0,0], size=[383.7,700])
+# hand_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_exec.png', pos=[0,0], size=[383.7,700])
+# #  FOOT STIMULI
+# foot_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_plan.png', pos=[0,0], size=[383.7,700])
+# foot_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_plan.png', pos=[0,0], size=[383.7,700])
+# foot_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_exec.png', pos=[0,0], size=[383.7,700])
+# foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_exec.png', pos=[0,0], size=[383.7,700])
+# stimuli_dict = {
+#     'hand_l_plan': hand_l_plan,'hand_r_plan': hand_r_plan,
+#     'hand_l_exec': hand_l_exec,'hand_r_exec': hand_r_exec,
+#     'foot_l_plan': foot_l_plan,'foot_r_plan': foot_r_plan,
+#     'foot_l_exec': foot_l_exec,'foot_r_exec': foot_r_exec,
+# }
+
+# Define all stimuli filenames
+stimuli_filenames = [
+    "AC_foot_l_execute_clockwise.png", "AC_foot_l_execute_counterclockwise.png", "AC_foot_l_execute_leftright.png",
+    "AC_foot_l_plan_clockwise.png", "AC_foot_l_plan_counterclockwise.png", "AC_foot_l_plan_leftright.png",
+    "AC_foot_r_execute_clockwise.png", "AC_foot_r_execute_counterclockwise.png", "AC_foot_r_execute_leftright.png",
+    "AC_foot_r_plan_clockwise.png", "AC_foot_r_plan_counterclockwise.png", "AC_foot_r_plan_leftright.png",
+    "AC_hand_l_execute_clockwise.png", "AC_hand_l_execute_counterclockwise.png", "AC_hand_l_execute_leftright.png",
+    "AC_hand_l_plan_clockwise.png", "AC_hand_l_plan_counterclockwise.png", "AC_hand_l_plan_leftright.png",
+    "AC_hand_r_execute_clockwise.png", "AC_hand_r_execute_counterclockwise.png", "AC_hand_r_execute_leftright.png",
+    "AC_hand_r_plan_clockwise.png", "AC_hand_r_plan_counterclockwise.png", "AC_hand_r_plan_leftright.png"
+]
+
+# Initialize stimuli dictionary
+stimuli_dict = {}
+
+# Create stimuli dynamically
+for filename in stimuli_filenames:
+    key = filename.replace(".png", "").replace("AC_", "")  # Remove file extension for dictionary keys
+    stimuli_dict[key] = visual.ImageStim(win, image=os.path.join(current_directory, "stimuli", "AC_stimuli", filename), pos=[0, 0], size=[500, 700])
+
 
 #  TEXT STIMULI
 instruction_dict = {
@@ -72,32 +90,40 @@ instruction_dict = {
     1.0 : 'In this experiment, your job is to plan and execute certain body movements according to the instructions. \n\n',
     # Arrows
     2.0 : 'During the experiment, you will see one of three arrows on the body figure. \n\n',
-    2.1 : '1) When you see this arrow, \n move your body part LEFT and RIGHT',
-    2.2 : '2) When you see this arrow, \n Rotate your body part CLOCKWISE',
-    2.3 : '3) When you see this arrow, \n Rotate your body part COUNTER-CLOCKWISE',
+    2.1 : '1) When you see this arrow, move your body part LEFT and RIGHT',
+    2.2 : '2) When you see this arrow, Rotate your body part CLOCKWISE',
+    2.3 : '3) When you see this arrow, Rotate your body part COUNTER-CLOCKWISE',
     # Rules
     3.0 : "On the body figure on the screen, you will see one of the hands or feet in colors.\n\n",
-    3.1 : "If hand or foot is in yellow, PLAN your movement in 10 seconds. \n\n **YELLOW = PLANNING** \n\n Remember: Press SPACE when you're done with planning and ready to execute.",
+    3.1 : "If hand or foot is in yellow, PLAN your movement in 10 seconds. \n\n **YELLOW = PLANNING** \n\n Remember: Press SPACE when you're done with planning and ready to execute. \n Execution phase will automatically start after 10 seconds.",
     3.2 : "When the color of the arrows changes into green, EXECUTE your movement in 10 seconds. \n\n **GREEN = EXECUTION** \n\n After execution, you will get feedback from the instructor on whether you are correct or not \n\n",
-    3.3 : "You will have a short break after every 10 trials.\n\n",
+    3.3 : "If you answer correctly, you will see 'correct' sign with this sound and move on to the next trial.",
+    3.4 : "If you make a mistake or don't respond fast enough with execution, \n you will see 'incorrect' sign and hear this buzzer.",
+    3.5 : "You will have a short break after every 10 trials.\n\n",
     # Prepare to start the task
     4.0 : 'You are now ready to start the task! \n\n Press SPACE to start the experiment.',
     # Break Instructions
     'break' : 'Take a short break. You will be able to continue after 5 seconds.\n\n Press SPACE when you are ready to continue.',
     # MISC
     'q' : 'You pressed the "q" key. The experiment will now end.',
-    'slow' : 'Too Slow!',
-    'incorrect' : 'Incorrect!',
+    'slow' : 'Too Slow!\n\nPlease try to execute faster.',
     'fast' : 'Too Fast!\n\nPlease wait for the trial to start.',
+    'correct' : 'Correct!',
+    'incorrect' : 'Incorrect!',
+    'plan_done' : "Press SPACE when you're done with planning and ready to execute."
 }
 
 image_dict = {
-    2.1: os.path.join(current_directory, "stimuli", "left_right_yellow.png"),
-    2.2: os.path.join(current_directory, "stimuli", "clockwise_yellow.png"),
-    2.3: os.path.join(current_directory, "stimuli", "counterclockwise_yellow.png")
+    2.1: os.path.join(current_directory, "stimuli", "AC_stimuli", "AC_left_right_yellow.png"),
+    2.2: os.path.join(current_directory, "stimuli", "AC_stimuli", "AC_clockwise_yellow.png"),
+    2.3: os.path.join(current_directory, "stimuli", "AC_stimuli", "AC_counterclockwise_yellow.png")
 }
 
-instruction_stim = visual.TextStim(win, text='', color='black', pos=[0,0], wrapWidth=1000)
+#  SOUND STIMULI
+correct_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_beep_earn_point_pick_up_item_001_78373.wav')
+incorrect_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_high_pitched_buzzer_78377.wav')
+
+instruction_stim = visual.TextStim(win, text='', color='white', pos=[0,0], wrapWidth=1000)
 
 def instruct(x):
     win.flip()
@@ -106,53 +132,76 @@ def instruct(x):
     instruction_stim.draw()
 
     if x in image_dict:
-        image_stim = visual.ImageStim(win, image=image_dict[x], pos=[0, -100], size=(80, 80))
+        image_stim = visual.ImageStim(win, image=image_dict[x], pos=[0, -100], size=(200, 200))
         image_stim.draw()
 
     win.flip()
+
+    # Play sounds for specific instructions
+    if x == "3.3":
+        sound_off(correct_sound)
+    elif x == "3.4":
+        sound_off(incorrect_sound)
+    
     event.waitKeys(keyList=['space'])
 
 def display_feedback(feedback,time=1.0):
-    # incorrect_sound.play()
+    incorrect_sound.play()
     instruction_stim.setText(instruction_dict[feedback])
-    instruction_stim.setColor('red')
+    instruction_stim.setColor('white')
+    instruction_stim.setPos((0, 0)) 
     instruction_stim.draw()
     win.flip()
     core.wait(time)
-    instruction_stim.setColor('black')
+    # instruction_stim.setColor('white')
 
-def present_stimulus(part, plan_or_exec, movement): # add movement here 
+def present_stimulus(part, plan_or_exec, movement): 
     win.flip()
     core.wait(0.25)
     figure.draw()
     stimuli_dict[f'{part}_{plan_or_exec}_{movement}'].draw()
+    if plan_or_exec == 'plan':
+        instruction_stim.setText(instruction_dict['plan_done'])
+        instruction_stim.setColor('white')
+        instruction_stim.setPos((0, -350))  # Adjust as needed 
+        instruction_stim.draw()
+    win.flip()  # Ensure it appears BEFORE moving on
     timer.reset()
-    win.flip()
 
-def get_feedback(key_that_you_pressed, part, reaction_time):
+def get_feedback(key_that_you_pressed, reaction_time):
     if key_that_you_pressed:
         # evaulate a key press
-        # if reaction_time < 1000:
-        #     display_feedback('fast',time=4.0)
-        #     instruction.setColor('black')
-        #     output = 0
+        if reaction_time < 1000:
+            display_feedback('fast',time=4.0)
+            instruction_stim.setColor('white')
+            output = 'fast'
         if key_that_you_pressed[0] == 'c':
-            # if part in ['hand_l', 'foot_l']:
-                # correct_sound.play()
+            sound_off(correct_sound)
             display_feedback('correct',time=1.0)
             output = 1
         elif key_that_you_pressed[0] == 'i':
             # if part in ['hand_r', 'foot_r']:
-                # correct_sound.play()
-                # incorrect_sound.play()
+            sound_off(incorrect_sound)
             display_feedback('incorrect',time=1.0)
             output = 0
         elif key_that_you_pressed[0] == 'space':
-            output = reaction_time
-    else: # no key press too slow
-        display_feedback('slow',time=1.0)
-        output = 0
+            if plan_or_exec == 'plan':
+                output = ""
+            else: 
+                output = reaction_time
+    else:  # No key press (too slow)
+        if plan_or_exec == 'plan':  
+            output = ""
+        else:
+            sound_off(incorrect_sound)
+            display_feedback('slow', time=1.0)
+            output = "slow"
     return(output)
+
+def sound_off(sound):
+    sound.play()
+    core.wait(sound.duration)
+    sound.stop()
 
 ##### Generate trials #####
 generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['num_trials'], task='ActionControl')
@@ -178,18 +227,21 @@ for key in sorted_numeric_keys:
 
 # Run the task
 trial_num = 1
-results_file = open(f'{current_directory}/data/{runtime_vars["subj_code"]}_ActionControl_data.csv', 'w')
+results_file = open(f'{current_directory}/data/ActionControl/{runtime_vars["subj_code"]}_ActionControl_data.csv', 'w')
 results_file.write('trial_num,subj_code,seed,part,plan_or_exec,movement,correct,reaction_time\n')
 for trial in trials:
     # get the trial variables
+
     subj_code, seed, part, plan_or_exec, movement = trial
     present_stimulus(part, plan_or_exec, movement)
 
-    key_that_you_pressed = event.waitKeys(keyList=['c','i','m','q'], maxWait=10.0)
+    key_that_you_pressed = event.waitKeys(
+        keyList=['q','space'] if plan_or_exec == 'plan' else ['c','i','q'], maxWait=10.0)
+    
     reaction_times = reaction_times + [round(timer.getTime() * 1000,0)] # get reaction time in MS
     print(reaction_times[-1])
     
-    fb = get_feedback(key_that_you_pressed, part, reaction_times[-1]) # 
+    fb = get_feedback(key_that_you_pressed, reaction_times[-1]) # 
     if (trial_num%10) == 0: # Break every 10 trials
         instruct('break')
         core.wait(5.0)
