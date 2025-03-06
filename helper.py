@@ -87,22 +87,22 @@ def check_paths(current_directory):
     
     ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
     # Check that stimuli are available
-    if not os.path.exists(f'{current_directory}/stimuli/figure.png'):
+    if not os.path.exists(f'{current_directory}/stimuli/LR_stimuli/LR_figure.png'):
         if not os.path.exists(f'{current_directory}/stimuli'): # Does the folder exist?
             raise FileNotFoundError(f'ERROR: Stimuli folder not found in {current_directory}.\nPlease ensure that the stimuli folder is in the same directory as this script.')
         else: # Does the figure exist?
             raise FileNotFoundError(f'ERROR: Figure not found in {current_directory}/stimuli.\nPlease ensure that the stimuli folder contains the required .png files distributed with these programs.')
     # Check that there is a trials folder and if not make it
-    if not os.path.exists(f'{current_directory}/trials'):
-        print(f'Trials folder not found in {current_directory}. Creating trials folder here:\n\t{current_directory}/trials.')
-        os.makedirs(f'{current_directory}/trials')
-        if not os.path.exists(f'{current_directory}/trials/LeftRight_trials'):
-            print(f'LeftRight_trials folder not found in {current_directory}/trials. Creating LeftRight_trials folder here:\n\t{current_directory}/trials/LeftRight_trials.')
-            os.makedirs(f'{current_directory}/trials/LeftRight_trials')
-        if not os.path.exists(f'{current_directory}/trials/ActionControl_trials'):
-            print(f'ActionControl_trials folder not found in {current_directory}/trials. Creating ActionControl_trials folder here:\n\t{current_directory}/trials/ActionControl_trials.')
-            os.makedirs(f'{current_directory}/trials/ActionControl_trials')
+    if not os.path.exists(f'{current_directory}/trials/LeftRight_trials'):
+        if not os.path.exists(f'{current_directory}/trials'):
+            print(f'Trials folder not found in {current_directory}. Creating trials folder here:\n\t{current_directory}/trials.')
+            os.makedirs(f'{current_directory}/trials')
+        print(f'LeftRight_trials folder not found in {current_directory}/trials. Creating LeftRight_trials folder here:\n\t{current_directory}/trials/LeftRight_trials.')
+        os.makedirs(f'{current_directory}/trials/LeftRight_trials')
     # Check that there is a data folder and if not we make it
-    if not os.path.exists(f'{current_directory}/data'):
-        print(f'Data folder not found in {current_directory}. Creating data folder here:\n\t{current_directory}/data.')
-        os.makedirs(f'{current_directory}/data')
+    if not os.path.exists(f'{current_directory}/data/LeftRight_data'):
+        if not os.path.exists(f'{current_directory}/data'):
+            print(f'Data folder not found in {current_directory}. Creating data folder here:\n\t{current_directory}/data.')
+            os.makedirs(f'{current_directory}/data')
+        print(f'LeftRight_trials folder not found in {current_directory}/trials. Creating LeftRight_data folder here:\n\t{current_directory}/data/LeftRight_data.')
+        os.makedirs(f'{current_directory}/data/LeftRight_data')

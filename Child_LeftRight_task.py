@@ -38,17 +38,17 @@ reaction_times = []
 win = visual.Window([1000,800], color='lightgray', units='pix', checkTiming=False)
 # preopen all the important stimuli
 #  FIGURE STIMULI
-figure = visual.ImageStim(win, image=f'{current_directory}/stimuli/figure.png', pos=[0,0], size=[383.7,700])
+figure = visual.ImageStim(win, image=f'{current_directory}/stimuli/LR_stimuli/LR_figure.png', pos=[0,0], size=[383.7,700])
 #  HAND STIMULI
-hand_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_plan.png', pos=[0,0], size=[383.7,700])
-hand_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_plan.png', pos=[0,0], size=[383.7,700])
-hand_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_exec.png', pos=[0,0], size=[383.7,700])
-hand_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_exec.png', pos=[0,0], size=[383.7,700])
+hand_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/LR_stimuli/LR_hand_l_plan.png', pos=[0,0], size=[383.7,700])
+hand_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/LR_stimuli/LR_hand_r_plan.png', pos=[0,0], size=[383.7,700])
+hand_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/LR_stimuli/LR_hand_l_exec.png', pos=[0,0], size=[383.7,700])
+hand_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/LR_stimuli/LR_hand_r_exec.png', pos=[0,0], size=[383.7,700])
 #  FOOT STIMULI
-foot_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_plan.png', pos=[0,0], size=[383.7,700])
-foot_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_plan.png', pos=[0,0], size=[383.7,700])
-foot_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_exec.png', pos=[0,0], size=[383.7,700])
-foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_exec.png', pos=[0,0], size=[383.7,700])
+foot_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/LR_stimuli/LR_foot_l_plan.png', pos=[0,0], size=[383.7,700])
+foot_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/LR_stimuli/LR_foot_r_plan.png', pos=[0,0], size=[383.7,700])
+foot_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/LR_stimuli/LR_foot_l_exec.png', pos=[0,0], size=[383.7,700])
+foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/LR_stimuli/LR_foot_r_exec.png', pos=[0,0], size=[383.7,700])
 stimuli_dict = {
     'hand_l_plan': hand_l_plan,'hand_r_plan': hand_r_plan,
     'hand_l_exec': hand_l_exec,'hand_r_exec': hand_r_exec,
@@ -198,7 +198,7 @@ event.waitKeys(keyList=['z','m'])
 
 # run the task
 trial_num = 1
-results_file = open(f'{current_directory}/data/{runtime_vars["subj_code"]}_LeftRight_data.csv', 'w')
+results_file = open(f'{current_directory}/data/LeftRight_data/{runtime_vars["subj_code"]}_LeftRight_data.csv', 'w')
 results_file.write('trial_num,subj_code,seed,part,plan_or_exec,correct,reaction_time\n')
 for trial in trials:
     # get the trial variables
