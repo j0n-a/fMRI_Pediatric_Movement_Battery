@@ -17,7 +17,7 @@ Updated 02/21/2025 by JA
 """
 ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
 current_directory = os.path.dirname(os.path.abspath(__file__))
-check_paths(current_directory)
+check_paths(current_directory, task='LeftRight')
 
 ##### Get runtime variables with the psychopy GUI#####
 def get_runtime_vars(vars_to_get,order,exp_version="experiment_code_for_reference"):
@@ -198,8 +198,11 @@ event.waitKeys(keyList=['z','m'])
 
 # run the task
 trial_num = 1
-results_file = open(f'{current_directory}/data/LeftRight_data/{runtime_vars["subj_code"]}_LeftRight_data.csv', 'w')
-results_file.write('trial_num,subj_code,seed,part,plan_or_exec,correct,reaction_time\n')
+if not os.path.exists(f'{current_directory}/data/LeftRight_data/{runtime_vars["subj_code"]}_LeftRight_data.csv'):
+    results_file = open(f'{current_directory}/data/LeftRight_data/{runtime_vars["subj_code"]}_LeftRight_data.csv', 'w')
+    results_file.write('trial_num,subj_code,seed,part,plan_or_exec,correct,reaction_time\n')
+else:
+    results_file = open(f'{current_directory}/data/LeftRight_data/{runtime_vars["subj_code"]}_LeftRight_data.csv', 'a')
 for trial in trials:
     # get the trial variables
     subj_code, seed, part, plan_or_exec = trial

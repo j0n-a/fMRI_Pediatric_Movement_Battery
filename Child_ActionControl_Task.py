@@ -1,6 +1,6 @@
 from psychopy import visual, sound, event, core, gui
 import os
-from helper_AC import generate_trials, check_paths
+from helper import generate_trials, check_paths
 
 '''
 This experiment was created for COGS 219 Final Project using PsychoPy (v2024.1.1).
@@ -21,7 +21,7 @@ last updated 03/05, SP
 
 ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
 current_directory = os.path.dirname(os.path.abspath(__file__))
-check_paths(current_directory)
+check_paths(current_directory, task='ActionControl')
 
 ##### Get runtime variables with the psychopy GUI#####
 def get_runtime_vars(vars_to_get,order,exp_version="experiment_code_for_reference"):
@@ -227,8 +227,11 @@ for key in sorted_numeric_keys:
 
 # Run the task
 trial_num = 1
-results_file = open(f'{current_directory}/data/ActionControl/{runtime_vars["subj_code"]}_ActionControl_data.csv', 'w')
-results_file.write('trial_num,subj_code,seed,part,plan_or_exec,movement,correct,reaction_time\n')
+if not os.path.exists(f'{current_directory}/data/ActionControl/{runtime_vars["subj_code"]}_ActionControl_data.csv'):
+    results_file = open(f'{current_directory}/data/ActionControl/{runtime_vars["subj_code"]}_ActionControl_data.csv', 'w')
+    results_file.write('trial_num,subj_code,seed,part,plan_or_exec,movement,correct,reaction_time\n')
+else:
+    results_file = open(f'{current_directory}/data/ActionControl/{runtime_vars["subj_code"]}_ActionControl_data.csv', 'a')
 for trial in trials:
     # get the trial variables
 

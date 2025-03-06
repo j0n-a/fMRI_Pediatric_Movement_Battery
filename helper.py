@@ -59,11 +59,11 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     elif task == 'ActionControl':
         header = separator.join(['subj_code','seed','part','plan_or_exec','movement'])
         trial_file.write(header+'\n')
-        for i in range(num_trials // 2): # two trials (plan & execution) per iteration
-            pick_part = random.choice(parts)
-            pick_movement = random.choice(movements)
-            trials.append([subj_code,seed,pick_part,'plan',pick_movement])
-            trials.append([subj_code,seed,pick_part,'exec',pick_movement])
+        for i in range(num_trials): 
+            pick_part = i%len(parts)
+            pick_plan_or_exec = (i//len(parts))%len(plan_or_exec)
+            pick_movement = (i//(len(parts)*len(plan_or_exec)))%len(movements)
+            trials.append([subj_code, seed, parts[pick_part], plan_or_exec[pick_plan_or_exec], movements[pick_movement]])
         # random.shuffle(trials)
         for trial in trials:
             trial_file.write(separator.join([str(x) for x in trial]) + '\n')
@@ -73,36 +73,45 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     #close the file
     trial_file.close()
 
-def check_paths(current_directory):
+def check_paths(current_directory, task=None):
     '''
     Check that the paths for the stimuli and the trials exist
     '''
     import os
 
-    #check that current_directory exists, is a string, and is a directory
+    # check that current_directory exists, is a string, and is a directory
     if not isinstance(current_directory,str):
         raise ValueError('ERROR: current_directory must be a string.')
     elif not os.path.isdir(current_directory):
         raise FileNotFoundError('ERROR: current_directory must be a string that points to a directory.')
     
+    # break if you are not given a task
+    if task is None:
+        raise ValueError('ERROR: You must specify a task')
+    elif task not in ['LeftRight', 'GoNoGO', 'ActionControl']:
+        raise ValueError('ERROR: You must specify a valid task\nValid tasks are: "LeftRight", "GoNoGO", "ActionControl"')
+
+    # instanciate task abreviations
+    task_abreviations = {'LeftRight':'LR', 'GoNoGO':'GNG', 'ActionControl':'AC'}
+
     ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
     # Check that stimuli are available
-    if not os.path.exists(f'{current_directory}/stimuli/LR_stimuli/LR_figure.png'):
+    if not os.path.exists(f'{current_directory}/stimuli/{task_abreviations[task]}_stimuli/{task_abreviations[task]}_figure.png'):
         if not os.path.exists(f'{current_directory}/stimuli'): # Does the folder exist?
             raise FileNotFoundError(f'ERROR: Stimuli folder not found in {current_directory}.\nPlease ensure that the stimuli folder is in the same directory as this script.')
         else: # Does the figure exist?
             raise FileNotFoundError(f'ERROR: Figure not found in {current_directory}/stimuli.\nPlease ensure that the stimuli folder contains the required .png files distributed with these programs.')
     # Check that there is a trials folder and if not make it
-    if not os.path.exists(f'{current_directory}/trials/LeftRight_trials'):
+    if not os.path.exists(f'{current_directory}/trials/{task}_trials'):
         if not os.path.exists(f'{current_directory}/trials'):
             print(f'Trials folder not found in {current_directory}. Creating trials folder here:\n\t{current_directory}/trials.')
             os.makedirs(f'{current_directory}/trials')
-        print(f'LeftRight_trials folder not found in {current_directory}/trials. Creating LeftRight_trials folder here:\n\t{current_directory}/trials/LeftRight_trials.')
-        os.makedirs(f'{current_directory}/trials/LeftRight_trials')
+        print(f'{task}_trials folder not found in {current_directory}/trials. Creating {task}_trials folder here:\n\t{current_directory}/trials/{task}_trials.')
+        os.makedirs(f'{current_directory}/trials/{task}_trials')
     # Check that there is a data folder and if not we make it
-    if not os.path.exists(f'{current_directory}/data/LeftRight_data'):
+    if not os.path.exists(f'{current_directory}/data/{task}_data'):
         if not os.path.exists(f'{current_directory}/data'):
             print(f'Data folder not found in {current_directory}. Creating data folder here:\n\t{current_directory}/data.')
             os.makedirs(f'{current_directory}/data')
-        print(f'LeftRight_trials folder not found in {current_directory}/trials. Creating LeftRight_data folder here:\n\t{current_directory}/data/LeftRight_data.')
-        os.makedirs(f'{current_directory}/data/LeftRight_data')
+        print(f'{task}_trials folder not found in {current_directory}/trials. Creating {task}_data folder here:\n\t{current_directory}/data/{task}_data.')
+        os.makedirs(f'{current_directory}/data/{task}_data')
