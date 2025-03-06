@@ -27,7 +27,7 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     # trial states
     parts = ['hand_l', 'foot_l', 'hand_r', 'foot_r']
     plan_or_exec = ['plan', 'exec']
-    movements = ['clockwise', 'counterclockwise','left_right'] # 'open_close'
+    movements = ['clockwise', 'counterclockwise','leftright'] # 'open_close'
     random.shuffle(parts) # we must shuffle the trials for taks that are not cleanly divisable by the number of permutations
     random.shuffle(plan_or_exec)
     random.shuffle(movements)
