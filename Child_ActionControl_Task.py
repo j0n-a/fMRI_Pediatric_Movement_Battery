@@ -223,6 +223,7 @@ sorted_numeric_keys = sorted(numeric_keys)
 # Iterate over the sorted numeric keys 
 sorted_numeric_keys = sorted([key for key in instruction_dict if isinstance(key, float)])
 for key in sorted_numeric_keys:
+    print(key)
     instruct(key)
 
 # Run the task
