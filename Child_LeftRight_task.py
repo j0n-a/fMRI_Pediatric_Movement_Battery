@@ -144,7 +144,7 @@ def get_feedback(key_that_you_pressed, part, reaction_time):
 
 def sound_off(sound):
     sound.play()
-    core.wait(sound.duration)
+    core.wait(float((sound.getDuration())))
     sound.stop()
 
 ##### Generate trials #####
@@ -152,7 +152,7 @@ generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['n
 
 ##### Get the trails #####
 trials = []
-with open(f'{current_directory}/trials/{runtime_vars["subj_code"]}_LeftRight_trials.csv', 'r') as trials_file:
+with open(f'{current_directory}/trials/LeftRight/{runtime_vars["subj_code"]}_LeftRight_trials.csv', 'r') as trials_file:
     for line in trials_file:
         if line.startswith('subj_code'):
             continue
@@ -207,7 +207,6 @@ for trial in trials:
 
     key_that_you_pressed = event.waitKeys(keyList=['z','m','q'], maxWait=2.0)
     reaction_times = reaction_times + [round(timer.getTime() * 1000,0)] # get reaction time in MS
-    print(reaction_times[-1])
     
     fb = get_feedback(key_that_you_pressed, part, reaction_times[-1])
     if (trial_num%10) == 0: # Break every 10 trials
