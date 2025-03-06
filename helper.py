@@ -14,6 +14,7 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     '''
     import os
     import random
+    import warnings
 
     # break if you are not given a task
     if task is None:
@@ -45,6 +46,8 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     # make and write trials 
     trials = []
     if task == 'LeftRight':
+        if num_trials < len(parts)*len(plan_or_exec):
+            warnings.warn(f'WARNING: You have fewer trials than the number of possible permutations ({len(parts)*len(plan_or_exec)} trial types). Some permutations will not be used.')
         header = separator.join(['subj_code','seed','part','plan_or_exec'])
         trial_file.write(header+'\n')
         for i in range(num_trials):
@@ -57,6 +60,8 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     elif task == 'GoNoGO':
         print('GoNoGO trials not yet implemented')
     elif task == 'ActionControl':
+        if num_trials < len(parts)*len(plan_or_exec)*len(movements):
+            warnings.warn(f'WARNING: You have fewer trials than the number of possible permutations ({len(parts)*len(plan_or_exec)*len(movements)} trial types). Some permutations will not be used.')
         header = separator.join(['subj_code','seed','part','plan_or_exec','movement'])
         trial_file.write(header+'\n')
         for i in range(num_trials): 
