@@ -118,6 +118,7 @@ def get_feedback(key_that_you_pressed, part, reaction_time):
     if key_that_you_pressed:
         # evaulate a key press
         if reaction_time < 200:
+            sound_off(incorrect_sound)
             display_feedback('fast',time=4.0)
             instruction.setColor('black')
             output = 0
@@ -138,6 +139,7 @@ def get_feedback(key_that_you_pressed, part, reaction_time):
                 display_feedback('incorrect',time=1.0)
                 output = 0
     else: # no key press too slow
+        sound_off(incorrect_sound)
         display_feedback('slow',time=1.0)
         output = 0
     return(output)
@@ -152,7 +154,7 @@ generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['n
 
 ##### Get the trails #####
 trials = []
-with open(f'{current_directory}/trials/LeftRight/{runtime_vars["subj_code"]}_LeftRight_trials.csv', 'r') as trials_file:
+with open(f'{current_directory}/trials/LeftRight_trials/{runtime_vars["subj_code"]}_LeftRight_trials.csv', 'r') as trials_file:
     for line in trials_file:
         if line.startswith('subj_code'):
             continue
@@ -186,10 +188,10 @@ event.waitKeys(keyList=['z','m'])
 instruct(4.5)
 event.waitKeys(keyList=['z','m'])
 instruct(4.6)
-sound_off(correct_sound)
+sound_off(incorrect_sound)
 event.waitKeys(keyList=['z','m'])
 instruct(4.7)
-sound_off(incorrect_sound)
+sound_off(correct_sound)
 event.waitKeys(keyList=['z','m'])
 instruct(4.8)
 event.waitKeys(keyList=['z','m'])
