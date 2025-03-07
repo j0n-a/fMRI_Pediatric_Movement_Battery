@@ -34,11 +34,11 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
 
     # create a trials folder if it doesn't already exist
     try:
-        os.mkdir(f'trials/{task}')
+        os.mkdir(f'trials/{task}_trials')
     except FileExistsError:
         # directory already exists
         pass
-    trial_file=open(f"trials/{task}/{subj_code}_{task}_trials.csv","w")
+    trial_file=open(f"trials/{task}_trials/{subj_code}_{task}_trials.csv","w")
 
     #write header
     separator = ','
@@ -61,15 +61,19 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
         print('GoNoGO trials not yet implemented')
     elif task == 'ActionControl':
         if num_trials < len(parts)*len(plan_or_exec)*len(movements):
-            warnings.warn(f'WARNING: You have fewer trials than the number of possible permutations ({len(parts)*len(plan_or_exec)*len(movements)} trial types). Some permutations will not be used.')
-        header = separator.join(['subj_code','seed','part','plan_or_exec','movement'])
+            warnings.warn(f'WARNING: You have fewer trials than the number of possible permutations ({len(parts)*len(movements)} trial types). Some permutations will not be used.')
+        header = separator.join(['subj_code','seed','part','plan_or_exec','movement','temporal_jitter'])
         trial_file.write(header+'\n')
-        for i in range(num_trials): 
-            pick_part = i%len(parts)
-            pick_plan_or_exec = (i//len(parts))%len(plan_or_exec)
-            pick_movement = (i//(len(parts)*len(plan_or_exec)))%len(movements)
-            trials.append([subj_code, seed, parts[pick_part], plan_or_exec[pick_plan_or_exec], movements[pick_movement]])
-        # random.shuffle(trials)
+        for i in range(num_trials//2): 
+            pick_part = i%len(parts) # iterate through the parts
+            pick_movement = (i//len(parts))%len(movements) # for each part, iterate through the movements
+            plan_temporal_jitter = random.randint(20, 65)/10 # random temporal jitter for the plan - range form Gordon et al. 2023
+            trials.append([subj_code, seed, parts[pick_part], 'plan', movements[pick_movement], plan_temporal_jitter]) # keep plan and exec together in the right order
+            exec_temporal_jitter = random.randint(40, 85)/10 # random temporal jitter for the exec - - range form Gordon et al. 2023
+            trials.append([subj_code, seed, parts[pick_part], 'exec', movements[pick_movement], exec_temporal_jitter]) 
+            if i%(len(parts)*len(movements)) == 0: # shuffle the trials every time we finish a full set of trial types
+                random.shuffle(parts)
+                random.shuffle(movements)
         for trial in trials:
             trial_file.write(separator.join([str(x) for x in trial]) + '\n')
     else:
