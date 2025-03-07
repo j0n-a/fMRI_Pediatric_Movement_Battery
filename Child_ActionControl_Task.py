@@ -44,43 +44,24 @@ win = visual.Window([1000,800], color="black", units='pix', checkTiming=False)
 # FIGURE STIMULI
 figure = visual.ImageStim(win, image=f'{current_directory}/stimuli/AC_stimuli/AC_figure.png', pos=[0,0], size=[500,700])
 
-#  HAND STIMULI
-# hand_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_plan.png', pos=[0,0], size=[383.7,700])
-# hand_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_plan.png', pos=[0,0], size=[383.7,700])
-# hand_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_l_exec.png', pos=[0,0], size=[383.7,700])
-# hand_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/hand_r_exec.png', pos=[0,0], size=[383.7,700])
-# #  FOOT STIMULI
-# foot_l_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_plan.png', pos=[0,0], size=[383.7,700])
-# foot_r_plan = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_plan.png', pos=[0,0], size=[383.7,700])
-# foot_l_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_l_exec.png', pos=[0,0], size=[383.7,700])
-# foot_r_exec = visual.ImageStim(win, image=f'{current_directory}/stimuli/foot_r_exec.png', pos=[0,0], size=[383.7,700])
-# stimuli_dict = {
-#     'hand_l_plan': hand_l_plan,'hand_r_plan': hand_r_plan,
-#     'hand_l_exec': hand_l_exec,'hand_r_exec': hand_r_exec,
-#     'foot_l_plan': foot_l_plan,'foot_r_plan': foot_r_plan,
-#     'foot_l_exec': foot_l_exec,'foot_r_exec': foot_r_exec,
-# }
-
 # Define all stimuli filenames
 stimuli_filenames = [
-    "AC_foot_l_execute_clockwise.png", "AC_foot_l_execute_counterclockwise.png", "AC_foot_l_execute_leftright.png",
+    "AC_foot_l_exec_clockwise.png", "AC_foot_l_exec_counterclockwise.png", "AC_foot_l_exec_leftright.png",
     "AC_foot_l_plan_clockwise.png", "AC_foot_l_plan_counterclockwise.png", "AC_foot_l_plan_leftright.png",
-    "AC_foot_r_execute_clockwise.png", "AC_foot_r_execute_counterclockwise.png", "AC_foot_r_execute_leftright.png",
+    "AC_foot_r_exec_clockwise.png", "AC_foot_r_exec_counterclockwise.png", "AC_foot_r_exec_leftright.png",
     "AC_foot_r_plan_clockwise.png", "AC_foot_r_plan_counterclockwise.png", "AC_foot_r_plan_leftright.png",
-    "AC_hand_l_execute_clockwise.png", "AC_hand_l_execute_counterclockwise.png", "AC_hand_l_execute_leftright.png",
+    "AC_hand_l_exec_clockwise.png", "AC_hand_l_exec_counterclockwise.png", "AC_hand_l_exec_leftright.png",
     "AC_hand_l_plan_clockwise.png", "AC_hand_l_plan_counterclockwise.png", "AC_hand_l_plan_leftright.png",
-    "AC_hand_r_execute_clockwise.png", "AC_hand_r_execute_counterclockwise.png", "AC_hand_r_execute_leftright.png",
+    "AC_hand_r_exec_clockwise.png", "AC_hand_r_exec_counterclockwise.png", "AC_hand_r_exec_leftright.png",
     "AC_hand_r_plan_clockwise.png", "AC_hand_r_plan_counterclockwise.png", "AC_hand_r_plan_leftright.png"
 ]
 
 # Initialize stimuli dictionary
 stimuli_dict = {}
-
 # Create stimuli dynamically
 for filename in stimuli_filenames:
     key = filename.replace(".png", "").replace("AC_", "")  # Remove file extension for dictionary keys
     stimuli_dict[key] = visual.ImageStim(win, image=os.path.join(current_directory, "stimuli", "AC_stimuli", filename), pos=[0, 0], size=[500, 700])
-
 
 #  TEXT STIMULI
 instruction_dict = {
@@ -138,9 +119,9 @@ def instruct(x):
     win.flip()
 
     # Play sounds for specific instructions
-    if x == "3.3":
+    if x == 3.3:
         sound_off(correct_sound)
-    elif x == "3.4":
+    elif x == 3.4:
         sound_off(incorrect_sound)
     
     event.waitKeys(keyList=['space'])
@@ -200,7 +181,7 @@ def get_feedback(key_that_you_pressed, reaction_time):
 
 def sound_off(sound):
     sound.play()
-    core.wait(sound.duration)
+    core.wait(float((sound.getDuration())))
     sound.stop()
 
 ##### Generate trials #####
@@ -208,7 +189,7 @@ generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['n
 
 ##### Get the trials #####
 trials = []
-with open(f'{current_directory}/trials/ActionControl/{runtime_vars["subj_code"]}_ActionControl_trials.csv', 'r') as trials_file:
+with open(f'{current_directory}/trials/ActionControl_trials/{runtime_vars["subj_code"]}_ActionControl_trials.csv', 'r') as trials_file:
     for line in trials_file:
         if line.startswith('subj_code'):
             continue
@@ -228,15 +209,18 @@ for key in sorted_numeric_keys:
 
 # Run the task
 trial_num = 1
-if not os.path.exists(f'{current_directory}/data/ActionControl/{runtime_vars["subj_code"]}_ActionControl_data.csv'):
-    results_file = open(f'{current_directory}/data/ActionControl/{runtime_vars["subj_code"]}_ActionControl_data.csv', 'w')
+if not os.path.exists(f'{current_directory}/data/ActionControl_data/{runtime_vars["subj_code"]}_ActionControl_data.csv'):
+    results_file = open(f'{current_directory}/data/ActionControl_data/{runtime_vars["subj_code"]}_ActionControl_data.csv', 'w')
     results_file.write('trial_num,subj_code,seed,part,plan_or_exec,movement,correct,reaction_time\n')
 else:
-    results_file = open(f'{current_directory}/data/ActionControl/{runtime_vars["subj_code"]}_ActionControl_data.csv', 'a')
+    results_file = open(f'{current_directory}/data/ActionControl_data/{runtime_vars["subj_code"]}_ActionControl_data.csv', 'a')
 for trial in trials:
     # get the trial variables
 
-    subj_code, seed, part, plan_or_exec, movement = trial
+    ############ ********************************************************************************** ############
+    ############ SUJIN I ADDED IN TEMPORAL JITTER TO THE TRIAL FILE SO IT MATCHES GORDON ET AL 2023 ############
+    ############ ********************************************************************************** ############
+    subj_code, seed, part, plan_or_exec, movement, temporal_jitter = trial
     present_stimulus(part, plan_or_exec, movement)
 
     key_that_you_pressed = event.waitKeys(
