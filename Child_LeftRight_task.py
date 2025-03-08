@@ -98,7 +98,6 @@ def instruct(x):
     win.flip()
 
 def display_feedback(feedback,time=1.0):
-    incorrect_sound.play()
     instruction.setText(instruction_dict[feedback])
     instruction.setColor('red')
     instruction.draw()

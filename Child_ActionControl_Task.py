@@ -31,7 +31,7 @@ def get_runtime_vars(vars_to_get,order,exp_version="experiment_code_for_referenc
     else: 
         print('User Cancelled')
 order =  ['subj_code','seed','num_trials']
-runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_trials':50}, order)
+runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_trials':48}, order)
 
 ##### Set up psychopy features for the task #####
 
@@ -68,7 +68,7 @@ instruction_dict = {
     'good': 'Great Job!',
     # Initial Explanation
     0.0 : 'Welcome to the Action Control Task! \n\n From now on, press SPACE to progress.',
-    1.0 : 'In this experiment, your job is to plan and execute certain body movements according to the instructions. \n\n',
+    1.0 : 'In this experiment, your job is to plan and then execute certain body movements according to the instructions. \n\n',
     # Arrows
     2.0 : 'During the experiment, you will see one of three arrows on the body figure. \n\n',
     2.1 : '1) When you see this arrow, move your body part LEFT and RIGHT',
@@ -76,8 +76,8 @@ instruction_dict = {
     2.3 : '3) When you see this arrow, Rotate your body part COUNTER-CLOCKWISE',
     # Rules
     3.0 : "On the body figure on the screen, you will see one of the hands or feet in colors.\n\n",
-    3.1 : "If hand or foot is in yellow, PLAN your movement in 10 seconds. \n Execution phase will automatically start after a few seconds. \n\n Again, **YELLOW = PLANNING**",
-    3.2 : "When the color of the arrows changes into green, EXECUTE your movement as fast as you can. \n After execution, you will get feedback from the instructor on whether you are correct or not \n\n Again, **GREEN = EXECUTION**",
+    3.1 : "If hand or foot is in yellow, PLAN your movement. \n Execution phase will automatically start after a few seconds. \n\n Again, **YELLOW = PLANNING**",
+    3.2 : "When the color of the arrows changes into green, EXECUTE your movement as fast as you can. \n After execution, you will get feedback from the instructor on whether you are correct or not. \n\n Again, **GREEN = EXECUTION**",
     3.3 : "If you answer correctly, you will see 'correct' sign with this sound and move on to the next trial.",
     3.4 : "If you make a mistake or don't respond fast enough with execution, \n you will see 'incorrect' sign and hear this buzzer.",
     3.5 : "You will have a short break after every 10 trials.\n\n",
@@ -127,7 +127,6 @@ def instruct(x):
     event.waitKeys(keyList=['space'])
 
 def display_feedback(feedback,time=1.0):
-    incorrect_sound.play()
     instruction_stim.setText(instruction_dict[feedback])
     instruction_stim.setColor('white')
     instruction_stim.setPos((0, 0)) 
@@ -141,11 +140,11 @@ def present_stimulus(part, plan_or_exec, movement):
     core.wait(0.25)
     figure.draw()
     stimuli_dict[f'{part}_{plan_or_exec}_{movement}'].draw()
-    if plan_or_exec == 'plan':
-        instruction_stim.setText(instruction_dict['plan_done'])
-        instruction_stim.setColor('white')
-        instruction_stim.setPos((0, -350))  # Adjust as needed 
-        instruction_stim.draw()
+    # if plan_or_exec == 'plan':
+        # instruction_stim.setText(instruction_dict['plan_done'])
+        # instruction_stim.setColor('white')
+        # instruction_stim.setPos((0, -350))  # Adjust as needed 
+        # instruction_stim.draw()
     win.flip()  # Ensure it appears BEFORE moving on
     timer.reset()
 
@@ -154,23 +153,21 @@ def get_feedback(key_that_you_pressed, reaction_time):
         # evaulate a key press
         if reaction_time < 1000:
             display_feedback('fast',time=4.0)
-            instruction_stim.setColor('white')
-            output = 'fast'
+            return('fast')
         elif key_that_you_pressed[0] == 'c':
-            display_feedback('correct',time=1.0)
             sound_off(correct_sound)
-            output = 1
+            display_feedback('correct',time=1.0)
+            return(1)
         elif key_that_you_pressed[0] == 'i':
-            display_feedback('incorrect',time=1.0)
             sound_off(incorrect_sound)
-            output = 0
-        elif key_that_you_pressed[0] == 'space':    
-            output = reaction_time
+            display_feedback('incorrect',time=1.0)
+            return(0)
     else:  # No key press (too slow)
-        display_feedback('slow', time=1.0)
         sound_off(incorrect_sound)
-        output = "slow"
-    return(output)
+        display_feedback('slow', time=1.0)
+
+        return('slow')
+    return(None)
 
 def sound_off(sound):
     sound.play()
@@ -213,7 +210,7 @@ for trial in trials:
    
     # plan phase
     present_stimulus(part, 'plan', movement)
-    event.waitKeys(keyList=['q','space'], maxWait=float(plan_temporal_jitter))
+    event.waitKeys(keyList=['q'], maxWait=float(plan_temporal_jitter))
     
     present_stimulus(part, 'exec', movement)
     key_that_you_pressed = event.waitKeys(keyList=['c','i','q'], maxWait=float(exec_temporal_jitter))
@@ -221,7 +218,7 @@ for trial in trials:
     exec_reaction_times = exec_reaction_times + [round(timer.getTime() * 1000,0)] # get reaction time in MS
     # print(reaction_times[-1])
     
-    fb = get_feedback(key_that_you_pressed, exec_reaction_times[-1]) # 
+    fb = get_feedback(key_that_you_pressed, exec_reaction_times[-1]) 
     if (trial_num%10) == 0: # Break every 10 trials
         instruct('break')
         core.wait(5.0)
@@ -235,6 +232,7 @@ for trial in trials:
     #                     trial_num, subj_code,   seed,  part,  movement,correct,plan_temporal_jitter,exec_temporal_jitter,   exec_reaction_time
     results_file.write(f'{trial_num},{subj_code},{seed},{part},{movement},{fb},{plan_temporal_jitter},{exec_temporal_jitter},{exec_reaction_times[-1]},{key_that_you_pressed}\n') 
     trial_num += 1
+
 
 # Shut down
 results_file.close()
