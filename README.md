@@ -37,8 +37,10 @@ This function generates trial lists used in the tasks.
 > - `num_trials`: An integer representing the total number of stimuli you'd like to display during a task.
 > - `task`: A string representing which task the trials are bing generated for. Valid inputs include `'LeftRight'`, `'GoNoGO'`, and `'ActionControl'`.
 
-### `check_paths(current_directory)`
+### `check_paths(current_directory, task=None)`
 > - `current_directory`: A string representing the current full file path of the directory running the function.
+> - `task`: A string representing which task the trials are bing generated for. Valid inputs include `'LeftRight'`, `'GoNoGO'`, and `'ActionControl'`.
+
 -------------------------------------------------------------------------------------
 
 Stimuli and associated information can be found in the [`stimuli` subfolder](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/tree/main/stimuli).
