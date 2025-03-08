@@ -62,18 +62,15 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
     elif task == 'ActionControl':
         if num_trials < len(parts)*len(plan_or_exec)*len(movements):
             warnings.warn(f'WARNING: You have fewer trials than the number of possible permutations ({len(parts)*len(movements)} trial types). Some permutations will not be used.')
-        header = separator.join(['subj_code','seed','part','plan_or_exec','movement','temporal_jitter'])
+        header = separator.join(['subj_code','seed','part','movement','plan_temporal_jitter','exec_temporal_jitter'])
         trial_file.write(header+'\n')
-        for i in range(num_trials//2): 
+        for i in range(num_trials): 
             pick_part = i%len(parts) # iterate through the parts
             pick_movement = (i//len(parts))%len(movements) # for each part, iterate through the movements
             plan_temporal_jitter = random.randint(20, 65)/10 # random temporal jitter for the plan - range form Gordon et al. 2023
-            trials.append([subj_code, seed, parts[pick_part], 'plan', movements[pick_movement], plan_temporal_jitter]) # keep plan and exec together in the right order
-            exec_temporal_jitter = random.randint(40, 85)/10 # random temporal jitter for the exec - - range form Gordon et al. 2023
-            trials.append([subj_code, seed, parts[pick_part], 'exec', movements[pick_movement], exec_temporal_jitter]) 
-            if i%(len(parts)*len(movements)) == 0: # shuffle the trials every time we finish a full set of trial types
-                random.shuffle(parts)
-                random.shuffle(movements)
+            exec_temporal_jitter = random.randint(40, 85)/10 
+            trials.append([subj_code, seed, parts[pick_part], movements[pick_movement], plan_temporal_jitter, exec_temporal_jitter]) # keep plan and exec together in the right order
+            random.shuffle(trials) # shuffle the trials
         for trial in trials:
             trial_file.write(separator.join([str(x) for x in trial]) + '\n')
     else:

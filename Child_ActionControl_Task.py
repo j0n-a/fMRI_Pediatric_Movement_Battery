@@ -36,7 +36,7 @@ runtime_vars = get_runtime_vars({'subj_code':'S001', 'seed':1, 'num_trials':50},
 ##### Set up psychopy features for the task #####
 
 timer = core.Clock()
-reaction_times = []
+exec_reaction_times = []
 
 win = visual.Window([1000,800], color="black", units='pix', checkTiming=False)
 
@@ -165,18 +165,12 @@ def get_feedback(key_that_you_pressed, reaction_time):
             sound_off(incorrect_sound)
             display_feedback('incorrect',time=1.0)
             output = 0
-        elif key_that_you_pressed[0] == 'space':
-            if plan_or_exec == 'plan':
-                output = ""
-            else: 
-                output = reaction_time
+        elif key_that_you_pressed[0] == 'space':    
+            output = reaction_time
     else:  # No key press (too slow)
-        if plan_or_exec == 'plan':  
-            output = ""
-        else:
-            sound_off(incorrect_sound)
-            display_feedback('slow', time=1.0)
-            output = "slow"
+        sound_off(incorrect_sound)
+        display_feedback('slow', time=1.0)
+        output = "slow"
     return(output)
 
 def sound_off(sound):
@@ -204,32 +198,31 @@ sorted_numeric_keys = sorted(numeric_keys)
 # Iterate over the sorted numeric keys 
 sorted_numeric_keys = sorted([key for key in instruction_dict if isinstance(key, float)])
 for key in sorted_numeric_keys:
-    print(key)
     instruct(key)
 
 # Run the task
 trial_num = 1
 if not os.path.exists(f'{current_directory}/data/ActionControl_data/{runtime_vars["subj_code"]}_ActionControl_data.csv'):
     results_file = open(f'{current_directory}/data/ActionControl_data/{runtime_vars["subj_code"]}_ActionControl_data.csv', 'w')
-    results_file.write('trial_num,subj_code,seed,part,plan_or_exec,movement,correct,reaction_time\n')
+    results_file.write('trial_num,subj_code,seed,part,movement,correct,plan_temporal_jitter,exec_temporal_jitter,exec_reaction_time,key_press\n')
 else:
     results_file = open(f'{current_directory}/data/ActionControl_data/{runtime_vars["subj_code"]}_ActionControl_data.csv', 'a')
 for trial in trials:
     # get the trial variables
 
-    ############ ********************************************************************************** ############
-    ############ SUJIN I ADDED IN TEMPORAL JITTER TO THE TRIAL FILE SO IT MATCHES GORDON ET AL 2023 ############
-    ############ ********************************************************************************** ############
-    subj_code, seed, part, plan_or_exec, movement, temporal_jitter = trial
-    present_stimulus(part, plan_or_exec, movement)
+    subj_code, seed, part, movement, plan_temporal_jitter, exec_temporal_jitter = trial
+   
+    # plan phase
+    present_stimulus(part, 'plan', movement)
+    event.waitKeys(keyList=['q','space'], maxWait=float(plan_temporal_jitter))
+    
+    present_stimulus(part, 'exec', movement)
+    key_that_you_pressed = event.waitKeys(keyList=['c','i','q'], maxWait=float(exec_temporal_jitter))
 
-    key_that_you_pressed = event.waitKeys(
-        keyList=['q','space'] if plan_or_exec == 'plan' else ['c','i','q'], maxWait=10.0)
+    exec_reaction_times = exec_reaction_times + [round(timer.getTime() * 1000,0)] # get reaction time in MS
+    # print(reaction_times[-1])
     
-    reaction_times = reaction_times + [round(timer.getTime() * 1000,0)] # get reaction time in MS
-    print(reaction_times[-1])
-    
-    fb = get_feedback(key_that_you_pressed, reaction_times[-1]) # 
+    fb = get_feedback(key_that_you_pressed, exec_reaction_times[-1]) # 
     if (trial_num%10) == 0: # Break every 10 trials
         instruct('break')
         core.wait(5.0)
@@ -240,7 +233,8 @@ for trial in trials:
         break 
     
     # record the results
-    results_file.write(f'{trial_num},{subj_code},{seed},{part},{plan_or_exec},{movement},{fb},{reaction_times[-1]}\n') 
+    #                     trial_num, subj_code,   seed,  part,  movement,correct,plan_temporal_jitter,exec_temporal_jitter,   exec_reaction_time
+    results_file.write(f'{trial_num},{subj_code},{seed},{part},{movement},{fb},{plan_temporal_jitter},{exec_temporal_jitter},{exec_reaction_times[-1]},{key_that_you_pressed}\n') 
     trial_num += 1
 
 # Shut down
