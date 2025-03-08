@@ -1,0 +1,7 @@
+trial_num,subj_code,seed,part,movement,correct,plan_temporal_jitter,exec_temporal_jitter,exec_reaction_time,key_press
+1,S001,1,foot_r,leftright,slow,3.0,7.2,7200.0,None
+2,S001,1,hand_l,leftright,1,4.6,7.4,1096.0,['c']
+3,S001,1,hand_l,counterclockwise,0,2.1,4.1,1964.0,['i']
+4,S001,1,hand_r,leftright,0,3.1,7.0,6139.0,['i']
+5,S001,1,hand_l,leftright,0,6.2,7.5,794.0,['i']
+6,S001,1,foot_l,counterclockwise,1,6.1,5.4,2086.0,['c']
