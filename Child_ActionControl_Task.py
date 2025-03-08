@@ -76,8 +76,8 @@ instruction_dict = {
     2.3 : '3) When you see this arrow, Rotate your body part COUNTER-CLOCKWISE',
     # Rules
     3.0 : "On the body figure on the screen, you will see one of the hands or feet in colors.\n\n",
-    3.1 : "If hand or foot is in yellow, PLAN your movement in 10 seconds. \n\n **YELLOW = PLANNING** \n\n Remember: Press SPACE when you're done with planning and ready to execute. \n Execution phase will automatically start after 10 seconds.",
-    3.2 : "When the color of the arrows changes into green, EXECUTE your movement in 10 seconds. \n\n **GREEN = EXECUTION** \n\n After execution, you will get feedback from the instructor on whether you are correct or not \n\n",
+    3.1 : "If hand or foot is in yellow, PLAN your movement in 10 seconds. \n Execution phase will automatically start after a few seconds. \n\n Again, **YELLOW = PLANNING**",
+    3.2 : "When the color of the arrows changes into green, EXECUTE your movement as fast as you can. \n After execution, you will get feedback from the instructor on whether you are correct or not \n\n Again, **GREEN = EXECUTION**",
     3.3 : "If you answer correctly, you will see 'correct' sign with this sound and move on to the next trial.",
     3.4 : "If you make a mistake or don't respond fast enough with execution, \n you will see 'incorrect' sign and hear this buzzer.",
     3.5 : "You will have a short break after every 10 trials.\n\n",
@@ -156,20 +156,19 @@ def get_feedback(key_that_you_pressed, reaction_time):
             display_feedback('fast',time=4.0)
             instruction_stim.setColor('white')
             output = 'fast'
-        if key_that_you_pressed[0] == 'c':
-            sound_off(correct_sound)
+        elif key_that_you_pressed[0] == 'c':
             display_feedback('correct',time=1.0)
+            sound_off(correct_sound)
             output = 1
         elif key_that_you_pressed[0] == 'i':
-            # if part in ['hand_r', 'foot_r']:
-            sound_off(incorrect_sound)
             display_feedback('incorrect',time=1.0)
+            sound_off(incorrect_sound)
             output = 0
         elif key_that_you_pressed[0] == 'space':    
             output = reaction_time
     else:  # No key press (too slow)
-        sound_off(incorrect_sound)
         display_feedback('slow', time=1.0)
+        sound_off(incorrect_sound)
         output = "slow"
     return(output)
 
