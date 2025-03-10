@@ -3,20 +3,9 @@ import os
 from helper import generate_trials, check_paths
 
 '''
-This experiment was created for COGS 219 Final Project using PsychoPy (v2024.1.1).
+This experiment was created for COGS 219 Final Project using PsychoPy.
 
-Start with the right path!!
-
-### Note ###
-1. reaction time recording at the end of the plan phase, too slow feedback = 10s 
-2. planning (~10s) -> execute (~10s), instructor give feedback and press the key (c for correct, i for incorrect)
-
-### To-do ###
-- add sound? 
-- fixation after execution?
-- change path in the end
-
-last updated 03/05, SP
+last updated 03/10, SP
 '''
 
 ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
@@ -68,7 +57,7 @@ instruction_dict = {
     'good': 'Great Job!',
     # Initial Explanation
     0.0 : 'Welcome to the Action Control Task! \n\n From now on, press SPACE to progress.',
-    1.0 : 'In this experiment, your job is to plan and then execute certain body movements according to the instructions. \n\n',
+    1.0 : 'In this experiment, your job is to 1) plan and then 2) execute certain body movements folowing the instructions.',
     # Arrows
     2.0 : 'During the experiment, you will see one of three arrows on the body figure. \n\n',
     2.1 : '1) When you see this arrow, move your body part LEFT and RIGHT',
@@ -76,8 +65,8 @@ instruction_dict = {
     2.3 : '3) When you see this arrow, Rotate your body part COUNTER-CLOCKWISE',
     # Rules
     3.0 : "On the body figure on the screen, you will see one of the hands or feet in colors.\n\n",
-    3.1 : "If hand or foot is in yellow, PLAN your movement. \n Execution phase will automatically start after a few seconds. \n\n Again, **YELLOW = PLANNING**",
-    3.2 : "When the color of the arrows changes into green, EXECUTE your movement as fast as you can. \n After execution, you will get feedback from the instructor on whether you are correct or not. \n\n Again, **GREEN = EXECUTION**",
+    3.1 : "In Planning phase, you will see hand or foot with a yellow arrow. You should PLAN your movement of the body part. \n Execution phase will automatically start after a few seconds. \n\n Again, ** YELLOW arrow = PLANNING **",
+    3.2 : "In Execution phase, the color of the arrows will change into green. You should EXECUTE your movement as fast as you can. \n After execution, you will get feedback from the instructor on whether you are correct or not. \n\n Again, ** GREEN arrow = EXECUTION **",
     3.3 : "If you answer correctly, you will see 'correct' sign with this sound and move on to the next trial.",
     3.4 : "If you make a mistake or don't respond fast enough with execution, \n you will see 'incorrect' sign and hear this buzzer.",
     3.5 : "You will have a short break after every 10 trials.\n\n",
