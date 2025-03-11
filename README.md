@@ -1,9 +1,28 @@
 # fMRI-Movement-Battery
 
 These tasks was created by [Sujin Park](https://scholar.google.com/citations?hl=en&user=qS3zgSgAAAAJ) (sup031@ucsd.edu) and [Jonathan Ahern](https://scholar.google.com/citations?user=6pU5U5gAAAAJ&hl=en) (jahern@ucsd.edu) for use in the [Developmental Cognitive Neuroscience Lab at UCSD](https://greenelab.ucsd.edu/).
-The tasks provided here are designed to be consistent with the movement task battery and action control coordination task used in previous work [(Gordon et. al. 2023)](https://doi.org/10.1038/s41586-023-05964-2)[^1]. Specific care has been taken to adapt these methods to a pediatric population and utilize guidelines identified in previous works [(Raschle et. al. 2009](https://doi.org/10.3791/1309) & [Wilke et. al. 2018)](https://doi.org/10.1002/acn3.658)[^2][^3]. 
+The tasks provided here are designed to be consistent with the movement task battery and action control coordination task used in previous work [(Gordon et. al. 2023)](https://doi.org/10.1038/s41586-023-05964-2)[^1]. Additional tasks have been added to establish a participant's ability to complete tasks. 
+
+Specific care has been taken to adapt these methods to a pediatric population and utilize guidelines identified in previous works [(Raschle et. al. 2009](https://doi.org/10.3791/1309) & [Wilke et. al. 2018)](https://doi.org/10.1002/acn3.658)[^2][^3]. 
 
 -------------------------------------------------------------------------------------
+# Start-up Guide
+
+To run the tasks in the fMRI Pediatric Movement Battery you will first need to clone this GitHub repository using the following command:
+```
+git clone https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery.git
+cd fMRI_Pediatric_Movement_Battery
+```
+We recommend using `conda` to manage program dependencies. You can install conda via this [link](https://www.anaconda.com/download). Conda documentation can be found [here](https://docs.conda.io/en/latest/).
+
+Once you have `conda` installed you can use this code to create a new conda environment where you will run the task scripts:
+```
+conda env create --file fMRI_envrioment.yml
+source activate fMRI_task_envrioment
+```
+
+-------------------------------------------------------------------------------------
+# Included Code
 ## Left-Right Task 
 [`Child_LeftRight_task.py`](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/blob/main/Child_LeftRight_task.py)
 
