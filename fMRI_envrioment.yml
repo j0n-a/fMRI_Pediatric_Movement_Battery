@@ -1,4 +1,4 @@
-name: cogs219_2
+name: fMRI_task_envrioment
 channels:
   - defaults
   - https://repo.anaconda.com/pkgs/main
