@@ -91,7 +91,7 @@ instruction_dict = {
     'end' : 'End of the experiment. Closing now...'
 }
 
-instruction = visual.TextStim(win, text='', color='black', pos=[0,0])
+instruction = visual.TextStim(win, text='', color='black', pos=[0,0], height=25)
 def instruct(x):
     win.flip()
     core.wait(0.25)
