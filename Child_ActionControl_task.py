@@ -3,9 +3,19 @@ import os
 from helper import generate_trials, check_paths
 
 '''
-This experiment was created for COGS 219 Final Project using PsychoPy.
+This task is a child version of Action Control Task from (Gordon et. al. 2023). 
+There are three conditions for this task.
 
-last updated 03/10, SP
+- Body parts: left hand, right hand, left foot, right foot
+- Movements: left-right, clockwise, counterclockwise
+- Phases: plan (yellow arrow), execute (green arrow) - each up to 10 seconds
+
+Body parts and Movements are randomized, but plan phase always comes first before execute phase. 
+Participants will be asked to plan and execute based on the given stimuli and will receive feedback from the instructor on their responses. 
+Brief pauses will be given after every 10 trials.
+
+% created for COGS 219 Final Project using PsychoPy.
+last updated 03/11, SP
 '''
 
 ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
