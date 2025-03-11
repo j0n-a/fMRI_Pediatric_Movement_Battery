@@ -65,8 +65,8 @@ instruction_dict = {
     2.3 : '3) When you see this arrow, Rotate your body part COUNTER-CLOCKWISE',
     # Rules
     3.0 : "On the body figure on the screen, you will see one of the hands or feet in colors.\n\n",
-    3.1 : "In Planning phase, you will see hand or foot with a yellow arrow. You should PLAN your movement of the body part. \n Execution phase will automatically start after a few seconds. \n\n Again, ** YELLOW arrow = PLANNING **",
-    3.2 : "In Execution phase, the color of the arrows will change into green. You should EXECUTE your movement as fast as you can. \n After execution, you will get feedback from the instructor on whether you are correct or not. \n\n Again, ** GREEN arrow = EXECUTION **",
+    3.1 : "In Planning phase, you will see hand or foot with a yellow arrow. You should PLAN your movement of the body part. Execution phase will automatically start after a few seconds. \n\n Again, ** YELLOW arrow = PLANNING **",
+    3.2 : "In Execution phase, the color of the arrows will change into green. You should EXECUTE your movement as fast as you can. After execution, you will get feedback from the instructor on whether you are correct or not. \n\n Again, ** GREEN arrow = EXECUTION **",
     3.3 : "If you answer correctly, you will see 'correct' sign with this sound and move on to the next trial.",
     3.4 : "If you make a mistake or don't respond fast enough with execution, \n you will see 'incorrect' sign and hear this buzzer.",
     3.5 : "You will have a short break after every 10 trials.\n\n",
@@ -80,20 +80,21 @@ instruction_dict = {
     'fast' : 'Too Fast!\n\nPlease wait for the trial to start.',
     'correct' : 'Correct!',
     'incorrect' : 'Incorrect!',
-    'plan_done' : "Press SPACE when you're done with planning and ready to execute."
+    'plan_done' : "Press SPACE when you're done with planning and ready to execute.",
+    'end' : 'End of the experiment. Closing now...'
 }
 
 image_dict = {
-    2.1: os.path.join(current_directory, "stimuli", "AC_stimuli", "AC_left_right_yellow.png"),
-    2.2: os.path.join(current_directory, "stimuli", "AC_stimuli", "AC_clockwise_yellow.png"),
-    2.3: os.path.join(current_directory, "stimuli", "AC_stimuli", "AC_counterclockwise_yellow.png")
+    2.1: os.path.join(current_directory, "stimuli", "AC_stimuli", "AC_left_right_green.png"),
+    2.2: os.path.join(current_directory, "stimuli", "AC_stimuli", "AC_clockwise_green.png"),
+    2.3: os.path.join(current_directory, "stimuli", "AC_stimuli", "AC_counterclockwise_green.png")
 }
 
 #  SOUND STIMULI
 correct_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_beep_earn_point_pick_up_item_001_78373.wav')
 incorrect_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_high_pitched_buzzer_78377.wav')
 
-instruction_stim = visual.TextStim(win, text='', color='white', pos=[0,0], wrapWidth=1000)
+instruction_stim = visual.TextStim(win, text='', color='white', pos=[0,0], height=0.3, wrapWidth=1000)
 
 def instruct(x):
     win.flip()
@@ -225,5 +226,6 @@ for trial in trials:
 
 # Shut down
 results_file.close()
+instruct('end')
 win.close()
 core.quit()
