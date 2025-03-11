@@ -3,9 +3,19 @@ import os
 from helper import generate_trials, check_paths
 
 '''
-This experiment was created for COGS 219 Final Project using PsychoPy.
+This task is a child version of Action Control Task from (Gordon et. al. 2023). 
+There are three conditions for this task.
 
-last updated 03/10, SP
+- Body parts: left hand, right hand, left foot, right foot
+- Movements: left-right, clockwise, counterclockwise
+- Phases: plan (yellow arrow), execute (green arrow) - each up to 10 seconds
+
+Body parts and Movements are randomized, but plan phase always comes first before execute phase. 
+Participants will be asked to plan and execute based on the given stimuli and will receive feedback from the instructor on their responses. 
+Brief pauses will be given after every 10 trials.
+
+% created for COGS 219 Final Project using PsychoPy.
+last updated 03/11, SP
 '''
 
 ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
@@ -57,7 +67,7 @@ instruction_dict = {
     'good': 'Great Job!',
     # Initial Explanation
     0.0 : 'Welcome to the Action Control Task! \n\n From now on, press SPACE to progress.',
-    1.0 : 'In this experiment, your job is to 1) plan and then 2) execute certain body movements folowing the instructions.',
+    1.0 : 'In this experiment, your job is to 1) plan and then 2) execute certain body movements following the instructions.',
     # Arrows
     2.0 : 'During the experiment, you will see one of three arrows on the body figure. \n\n',
     2.1 : '1) When you see this arrow, move your body part LEFT and RIGHT',
@@ -65,8 +75,8 @@ instruction_dict = {
     2.3 : '3) When you see this arrow, Rotate your body part COUNTER-CLOCKWISE',
     # Rules
     3.0 : "On the body figure on the screen, you will see one of the hands or feet in colors.\n\n",
-    3.1 : "In Planning phase, you will see hand or foot with a yellow arrow. You should PLAN your movement of the body part. Execution phase will automatically start after a few seconds. \n\n Again, ** YELLOW arrow = PLANNING **",
-    3.2 : "In Execution phase, the color of the arrows will change into green. You should EXECUTE your movement as fast as you can. After execution, you will get feedback from the instructor on whether you are correct or not. \n\n Again, ** GREEN arrow = EXECUTION **",
+    3.1 : "In Planning phase, you will see hand or foot with a yellow arrow. \n You should PLAN your movement of the body part. \n Execution phase will automatically start after a few seconds. \n\n Again, ** YELLOW arrow = PLANNING **",
+    3.2 : "In Execution phase, the color of the arrows will change into green. \n You should EXECUTE your movement as fast as you can. \n After execution, you will get feedback from the instructor on whether you are correct or not. \n\n Again, ** GREEN arrow = EXECUTION **",
     3.3 : "If you answer correctly, you will see 'correct' sign with this sound and move on to the next trial.",
     3.4 : "If you make a mistake or don't respond fast enough with execution, \n you will see 'incorrect' sign and hear this buzzer.",
     3.5 : "You will have a short break after every 10 trials.\n\n",
@@ -94,7 +104,7 @@ image_dict = {
 correct_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_beep_earn_point_pick_up_item_001_78373.wav')
 incorrect_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_high_pitched_buzzer_78377.wav')
 
-instruction_stim = visual.TextStim(win, text='', color='white', pos=[0,0], height=0.3, wrapWidth=1000)
+instruction_stim = visual.TextStim(win, text='', color='white', pos=[0,0], height=25, wrapWidth=800)
 
 def instruct(x):
     win.flip()

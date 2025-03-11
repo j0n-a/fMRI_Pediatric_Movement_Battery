@@ -81,8 +81,9 @@ instruction_dict = {
     'incorrect' : 'Incorrect!',
     'fast' : 'Too Fast!\n\nPlease wait for the trial to start.',
     'nogo': 'This is a No Go trial. Do not press any buttons.',
+    'end' : 'End of the experiment. Closing now...'
     }
-instruction = visual.TextStim(win, text='', color='black', pos=[0,0])
+instruction = visual.TextStim(win, text='', color='black', pos=[0,0], height=25)
 
 def instruct(x):
     win.flip()
@@ -224,5 +225,6 @@ for trial in trials:
 
 # Shut down
 results_file.close()
+instruct('end')
 win.close()
 core.quit()
