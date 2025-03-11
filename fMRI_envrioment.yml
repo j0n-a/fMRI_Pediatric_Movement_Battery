@@ -357,4 +357,3 @@ dependencies:
       - zeroconf==0.145.1
       - zope-event==5.0
       - zope-interface==7.2
-prefix: /Users/jonathanahern/miniconda3/envs/cogs219_2
