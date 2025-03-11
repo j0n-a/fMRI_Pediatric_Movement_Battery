@@ -58,9 +58,23 @@ def generate_trials(subj_code, seed, num_trials=48, task=None):
         for trial in trials:
             trial_file.write(separator.join([str(x) for x in trial])+'\n')
     elif task == 'GoNoGO':
-        print('GoNoGO trials not yet implemented')
+        if num_trials < len(parts)*len(movements):
+            warnings.warn(f'WARNING: You have fewer trials than the number of possible permutations ({len(parts)*len(movements)} trial types). Some permutations will not be used.')
+        header = separator.join(['subj_code','seed','part','plan_or_exec'])
+        trial_file.write(header+'\n')
+        for i in range(num_trials): 
+            pick_part = i%len(parts)
+            percentile_die = random.randint(1,100) 
+            if percentile_die <= 70: # ~70% of the time we want to plan
+                plan_or_exec = 'exec'
+            else:
+                plan_or_exec = 'plan'
+            trials.append([subj_code, seed, parts[pick_part],plan_or_exec]) # keep plan and exec together in the right order
+            random.shuffle(trials) # shuffle the trials
+        for trial in trials:
+            trial_file.write(separator.join([str(x) for x in trial]) + '\n')
     elif task == 'ActionControl':
-        if num_trials < len(parts)*len(plan_or_exec)*len(movements):
+        if num_trials < len(parts)*len(movements):
             warnings.warn(f'WARNING: You have fewer trials than the number of possible permutations ({len(parts)*len(movements)} trial types). Some permutations will not be used.')
         header = separator.join(['subj_code','seed','part','movement','plan_temporal_jitter','exec_temporal_jitter'])
         trial_file.write(header+'\n')
@@ -98,7 +112,9 @@ def check_paths(current_directory, task=None):
         raise ValueError('ERROR: You must specify a valid task\nValid tasks are: "LeftRight", "GoNoGO", "ActionControl"')
 
     # instanciate task abreviations
-    task_abreviations = {'LeftRight':'LR', 'GoNoGO':'GNG', 'ActionControl':'AC'}
+    task_abreviations = {
+        'LeftRight':'LR', 'GoNoGO':'LR', # LeftRight and GoNoGO have the same stimuli
+        'ActionControl':'AC'}
 
     ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
     # Check that stimuli are available
