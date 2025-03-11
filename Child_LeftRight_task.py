@@ -13,7 +13,7 @@ Participants will receive feedback on their responses. Brief pauses will be give
 
 This experiment was created partly for UCSD's COGS 219 (WI25) Final Project using PsychoPy (v2024.1.1).
 
-Updated 02/21/2025 by JA 
+Updated 03/11/2025 by JA 
 """
 ##### MAKE SURE ALL THE PIECES ARE IN THE RIGHT PLACE #####
 current_directory = os.path.dirname(os.path.abspath(__file__))
