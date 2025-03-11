@@ -226,5 +226,6 @@ for trial in trials:
 
 # Shut down
 results_file.close()
+instruct('end')
 win.close()
 core.quit()
