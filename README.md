@@ -28,8 +28,10 @@ source activate fMRI_task_envrioment
 
 This task is designed to establish a participant's ability to distinguish between the left and right sides of their body to establish minimum task competency prior to undertaking the full task in the MRI scanner. Stimuli are presented on the body and appear in one of four locations: the left hand, the right hand, the left foot, or the right foot. The body locations will be highlighted in either yellow or green. Participants will be asked to press the 'z' key if the left side of the body is highlighted and the 'm' key if the right side of the body is highlighted, and they must respond within 2 seconds. Participants will receive feedback on their responses. Brief pauses will be given after every 10 trials.
 
-## Go/NoGo Task
+## Go/No Go Task
 [`Child_GoNoGo_task.py`](https://github.com/j0n-a/fMRI_Pediatric_Movement_Battery/blob/main/Child_GoNoGo_task.py)
+
+A Go/No Go task is a psychological paradigm for assessing impulse control, hyperactivity, and attention [(Bezdjian et. al. 2009)](https://doi.org/10.1348/026151008X314919)[^4]. Participants are asked to respond to stimuli only in the Go condition and are supposed to withhold their responses in a No Go Condition.
 
 Description of other tasks.
 
@@ -67,3 +69,4 @@ Stimuli and associated information can be found in the [`stimuli` subfolder](htt
 [^1]: Gordon, E.M., Chauvin, R.J., Van, A.N. et. al. A somato-cognitive action network alternates with effector regions in motor cortex. Nature 617, 351–359 (2023). https://doi.org/10.1038/s41586-023-05964-2
 [^2]: Raschle, N. M., Lee, M., Buechler, R., Christodoulou, J. A., Chang, M., Vakil, M., Stering, P. L., & Gaab, N. (2009). Making MR imaging child's play - pediatric neuroimaging protocol, guidelines and procedure. Journal of visualized experiments : JoVE, (29), 1309. https://doi.org/10.3791/1309
 [^3]: Wilke, M., Groeschel, S., Lorenzen, A., Rona, S., Schuhmann, M.U., Ernemann, U. and Krägeloh-Mann, I. (2018), Clinical application of advanced MR methods in children: points to consider. Ann Clin Transl Neurol, 5: 1434-1455. https://doi.org/10.1002/acn3.658
+[^4]: Bezdjian, Serena, et al. “Assessing inattention and impulsivity in children during the Go/Nogo Task.” British Journal of Developmental Psychology, vol. 27, no. 2, June 2009, pp. 365–383, https://doi.org/10.1348/026151008x314919. 
