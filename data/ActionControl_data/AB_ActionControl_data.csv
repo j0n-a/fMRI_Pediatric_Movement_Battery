@@ -1,0 +1,4 @@
+trial_num,subj_code,seed,part,movement,correct,plan_temporal_jitter,exec_temporal_jitter,exec_reaction_time,key_press
+1,AB,7,hand_l,clockwise,1,4.3,5.6,4326.0,['c']
+2,AB,7,foot_r,counterclockwise,1,4.3,4.8,4193.0,['c']
+3,AB,7,foot_l,counterclockwise,0,2.3,7.2,4013.0,['i']
