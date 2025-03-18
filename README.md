@@ -19,6 +19,7 @@ Once you have `conda` installed you can use this code to create a new conda envi
 ```
 conda env create --file fMRI_envrioment.yml
 source activate fMRI_task_envrioment
+conda install conda-forge::wxpython
 ```
 
 -------------------------------------------------------------------------------------
