@@ -59,6 +59,7 @@ stimuli_dict = {
 #  SOUND STIMULI
 correct_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_beep_earn_point_pick_up_item_001_78373.wav')
 incorrect_sound = sound.Sound(f'{current_directory}/stimuli/zapsplat_multimedia_game_sound_short_high_pitched_buzzer_78377.wav')
+voice_over = sound.Sound(f'{current_directory}/stimuli/LR_stimuli/Voiceover/leftright_task.m4a') # voiceover by Salma Zreik
 
 #  TEXT STIMULI
 instruction_dict = {
@@ -149,6 +150,12 @@ def sound_off(sound):
     core.wait(float((sound.getDuration())))
     sound.stop()
 
+def voiceover(sound, start_time=0.0, end_time=0.0):
+    sound.play(srtartTime=start_time, stopTime=end_time)
+    durration = start_time - end_time
+    core.wait(durration)
+    sound.stop()
+
 ##### Generate trials #####
 generate_trials(runtime_vars['subj_code'], runtime_vars['seed'], runtime_vars['num_trials'], task='LeftRight')
 
@@ -164,6 +171,7 @@ with open(f'{current_directory}/trials/LeftRight_trials/{runtime_vars["subj_code
 
 # Initial Explanation
 instruct(0.0)
+voiceover(voice_over, 0.4, 0.8)
 event.waitKeys(keyList=['space'])
 instruct(1.0)
 event.waitKeys(keyList=['space'])
