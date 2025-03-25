@@ -1,4 +1,4 @@
-name: fMRI_task_envrioment
+name: fMRI_task_environment
 channels:
   - defaults
   - https://repo.anaconda.com/pkgs/main
